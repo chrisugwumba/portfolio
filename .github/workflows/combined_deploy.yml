@@ -40,11 +40,7 @@ jobs:
           fetch-depth: 0
           path: staging_site
           clean: false
-
-      - name: Force Branch Sync
-        run: |
-          cd prod_site && git fetch origin main:main
-          cd ../staging_site && git fetch origin draft:draft
+        continue on error: true
 
       # -----------------------------
       # Install Hugo
@@ -81,22 +77,28 @@ jobs:
       # -----------------------------
       - name: Prepare Deployment Directory
         run: |
-          mkdir -p public
-
-          cp -a prod_site/. public/
-
 
           mkdir -p public/blog
-
-          cp -a prod_site/docs/blog/. public/blog/
-
-          mkdir -p public/draft
-
-          cp -a staging_site/. public/draft/
-
           mkdir -p public/draft/blog
-          cp -a staging_site/docs/blog/. public/draft/blog/
 
+
+          cp -a prod_site/. public/
+          if [ -d "prod_site/docs/blog" ]; then
+            cp -a prod_site/docs/blog/. public/blog/
+          fi
+
+
+           
+
+          if [ -d "staging_site/blogs" ]; then
+            echo "Draft branch found, deploying staging..."
+            cp -a staging_site/. public/draft/
+            cp -a staging_site/docs/blog/. public/draft/blog/
+          else
+            echo "Draft branch missing/empty, using main as fallback to prevent 404..."
+            cp -a prod_site/. public/draft/
+            cp -a prod_site/docs/blog/. public/draft/blog/
+          fi
 
           rm -rf public/docs
           rm -rf public/draft/docs
