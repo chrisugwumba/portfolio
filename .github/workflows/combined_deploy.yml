@@ -76,15 +76,24 @@ jobs:
       - name: Prepare Deployment Directory
         run: |
           mkdir -p public
+
+          cp -a prod_site/. public/
+
+
+          mkdir -p public/blog
+
+          cp -a prod_site/docs/blog/. public/blog/
+
           mkdir -p public/draft
 
-          # Copy production build
-          cp -a prod_site/docs/blog/. public/
+          cp -a staging_site/. public/draft/
 
-          # Copy draft build into subfolder
-          cp -a staging_site/docs/blog/. public/draft/
+          mkdir -p public/draft/blog
+          cp -a staging_site/docs/blog/. public/draft/blog/
 
-          # Remove git metadata if present
+
+          rm -rf public/docs
+          rm -rf public/draft/docs
           find public -name ".git*" -exec rm -rf {} + || true
 
       # -----------------------------
