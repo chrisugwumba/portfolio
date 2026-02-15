@@ -65,39 +65,66 @@ jobs:
       # ------------------------------------------------------
       # 4. ASSEMBLE (The Self-Healing Step)
       # ------------------------------------------------------
-      - name: Assemble & Heal
+      - name: Build Main Site
+        run: |
+          # Explicitly create the temp folder at the root
+          mkdir -p ${{ github.workspace }}/temp_main_blog
+
+          # Run Hugo from the submodule directory
+          cd prod_site/blogs
+          hugo --baseURL="https://kaustuvbot.github.io/blog/" --destination="${{ github.workspace }}/temp_main_blog"
+
+      # ------------------------------------------------------
+      # 3. BUILD DRAFT SITE (Explicit Folder Creation)
+      # ------------------------------------------------------
+      - name: Build Draft Site
+        id: build_draft
+        continue-on-error: true
+        run: |
+          if [ -d "staging_site/blogs" ]; then
+            mkdir -p ${{ github.workspace }}/temp_draft_blog
+            cd staging_site/blogs
+            hugo --baseURL="https://kaustuvbot.github.io/draft/blog/" --buildDrafts --buildFuture --destination="${{ github.workspace }}/temp_draft_blog"
+          else
+            echo "Draft source not found, skipping build step."
+          fi
+
+      # ------------------------------------------------------
+      # 4. ASSEMBLE, HEAL, AND CLEANUP
+      # ------------------------------------------------------
+      - name: Assemble & Cleanup
         run: |
           # A. Setup Public Directory
           mkdir -p public/blog
           mkdir -p public/draft/blog
 
           # --- DEPLOY MAIN ---
-          # 1. Copy Static Root (Landing Page)
           cp -a prod_site/. public/
-          # 2. Copy Built Blog (from temp folder)
-          cp -a temp_main_blog/. public/blog/
-
-          # --- DEPLOY DRAFT (With Healing Logic) ---
-
-          # Check if the draft build actually produced files
-          if [ -d "temp_draft_blog" ] && [ "$(ls -A temp_draft_blog)" ]; then
-            echo "✅ Draft build SUCCESS. Deploying Draft content."
-            # Copy Draft Static Root
-            cp -a staging_site/. public/draft/
-            # Copy Draft Built Blog
-            cp -a temp_draft_blog/. public/draft/blog/
-          else
-            echo "⚠️ Draft build FAILED or MISSING. Healing with Main content."
-            # COPY THE BUILT MAIN SITE into the Draft folder
-            # This ensures NO 404s. It just looks like Main.
-            cp -a public/* public/draft/ 2>/dev/null || true
-            
-            # Fix the base tag if possible (optional, but helps theme)
-            # This is a crude patch to prevent broken CSS in the cloned version
-            # sed -i 's|/blog/|/draft/blog/|g' public/draft/blog/index.html || true
+          if [ -d "temp_main_blog" ]; then
+            cp -a temp_main_blog/. public/blog/
           fi
 
-          # Cleanup Git metadata so Pages doesn't reject it
+          # --- DEPLOY DRAFT (With Healing Logic) ---
+          if [ -d "temp_draft_blog" ] && [ "$(ls -A temp_draft_blog)" ]; then
+            echo "✅ Using fresh Draft build."
+            cp -a staging_site/. public/draft/
+            cp -a temp_draft_blog/. public/draft/blog/
+          else
+            echo "⚠️ Healing Draft with Main content to prevent 404."
+            cp -a prod_site/. public/draft/
+            cp -a temp_main_blog/. public/draft/blog/
+          fi
+
+          # --- CLEANUP ---
+          # 1. Remove build artifacts we just used
+          rm -rf ${{ github.workspace }}/temp_main_blog
+          rm -rf ${{ github.workspace }}/temp_draft_blog
+
+          # 2. Remove redundant docs folders (from your hugo publishDir)
+          rm -rf public/docs
+          rm -rf public/draft/docs
+
+          # 3. Remove git metadata
           find public -name ".git*" -exec rm -rf {} + || true
 
       - name: Upload Pages Artifact
