@@ -41,6 +41,11 @@ jobs:
           path: staging_site
           clean: false
 
+      - name: Force Branch Sync
+        run: |
+          cd prod_site && git fetch origin main:main
+          cd ../staging_site && git fetch origin draft:draft
+
       # -----------------------------
       # Install Hugo
       # -----------------------------
