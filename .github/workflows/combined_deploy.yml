@@ -39,6 +39,7 @@ jobs:
           token: ${{ secrets.CHPAT }}
           fetch-depth: 0
           path: staging_site
+          clean: false
 
       # -----------------------------
       # Install Hugo
