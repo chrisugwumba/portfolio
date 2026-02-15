@@ -40,7 +40,6 @@ jobs:
           fetch-depth: 0
           path: staging_site
           clean: false
-        continue on error: true
 
       # -----------------------------
       # Install Hugo
