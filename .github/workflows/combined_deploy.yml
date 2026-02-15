@@ -24,7 +24,7 @@ jobs:
           ref: main
           path: prod_site
           fetch-depth: 0
-          token: ${{ secrets.MY_PAT_KEY }}
+          token: ${{ secrets.CHPAT }}
           submodules: recursive
 
       - name: Checkout Draft
@@ -33,7 +33,7 @@ jobs:
           ref: refs/heads/draft # <--- FORCE specific branch ref
           path: staging_site
           fetch-depth: 0
-          token: ${{ secrets.MY_PAT_KEY }}
+          token: ${{ secrets.CHPAT }}
           submodules: recursive
         continue-on-error: true
 
