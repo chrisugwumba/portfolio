@@ -15,9 +15,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ------------------------------------------------------
-      # 1. CHECKOUTS (Explicit Refs to fix Merge confusion)
-      # ------------------------------------------------------
       - name: Checkout Main
         uses: actions/checkout@v4
         with:
@@ -30,7 +27,7 @@ jobs:
       - name: Checkout Draft
         uses: actions/checkout@v4
         with:
-          ref: refs/heads/draft # <--- FORCE specific branch ref
+          ref: draft
           path: staging_site
           fetch-depth: 0
           token: ${{ secrets.CHPAT }}
@@ -43,88 +40,54 @@ jobs:
           hugo-version: "latest"
           extended: true
 
-      # ------------------------------------------------------
-      # 2. BUILD MAIN SITE (The "Golden" Copy)
-      # ------------------------------------------------------
-      - name: Build Main Site
-        working-directory: prod_site/blogs
-        # We output DIRECTLY to a temp folder to keep it clean
-        run: hugo --baseURL="https://kaustuvbot.github.io/blog/" --destination="../../../temp_main_blog"
-
-      # ------------------------------------------------------
-      # 3. BUILD DRAFT SITE (Try to build, but don't crash)
-      # ------------------------------------------------------
-      - name: Build Draft Site
-        id: build_draft
-        if: hashFiles('staging_site/blogs/hugo.toml') != ''
-        working-directory: staging_site/blogs
-        # We output DIRECTLY to a separate temp folder
-        run: hugo --baseURL="https://kaustuvbot.github.io/draft/blog/" --buildDrafts --buildFuture --destination="../../../temp_draft_blog"
-        continue-on-error: true
-
-      # ------------------------------------------------------
-      # 4. ASSEMBLE (The Self-Healing Step)
-      # ------------------------------------------------------
+      # 1. Build Main Blog
       - name: Build Main Site
         run: |
-          # Explicitly create the temp folder at the root
           mkdir -p ${{ github.workspace }}/temp_main_blog
-
-          # Run Hugo from the submodule directory
           cd prod_site/blogs
           hugo --baseURL="https://kaustuvbot.github.io/blog/" --destination="${{ github.workspace }}/temp_main_blog"
 
-      # ------------------------------------------------------
-      # 3. BUILD DRAFT SITE (Explicit Folder Creation)
-      # ------------------------------------------------------
+      # 2. Build Draft Blog (No unique ID needed)
       - name: Build Draft Site
-        id: build_draft
-        continue-on-error: true
         run: |
           if [ -d "staging_site/blogs" ]; then
             mkdir -p ${{ github.workspace }}/temp_draft_blog
             cd staging_site/blogs
             hugo --baseURL="https://kaustuvbot.github.io/draft/blog/" --buildDrafts --buildFuture --destination="${{ github.workspace }}/temp_draft_blog"
           else
-            echo "Draft source not found, skipping build step."
+            echo "Draft source not found, skipping build."
           fi
+        continue-on-error: true
 
-      # ------------------------------------------------------
-      # 4. ASSEMBLE, HEAL, AND CLEANUP
-      # ------------------------------------------------------
-      - name: Assemble & Cleanup
+      # 3. Assemble, Heal, and Final Cleanup
+      - name: Assemble and Cleanup
         run: |
-          # A. Setup Public Directory
+          # Setup structure
           mkdir -p public/blog
           mkdir -p public/draft/blog
 
-          # --- DEPLOY MAIN ---
+          # Deploy MAIN
           cp -a prod_site/. public/
           if [ -d "temp_main_blog" ]; then
             cp -a temp_main_blog/. public/blog/
           fi
 
-          # --- DEPLOY DRAFT (With Healing Logic) ---
-          if [ -d "temp_draft_blog" ] && [ "$(ls -A temp_draft_blog)" ]; then
+          # Deploy DRAFT (with Self-Healing)
+          if [ -d "temp_draft_blog" ] && [ "$(ls -A temp_draft_blog 2>/dev/null)" ]; then
             echo "✅ Using fresh Draft build."
             cp -a staging_site/. public/draft/
             cp -a temp_draft_blog/. public/draft/blog/
           else
-            echo "⚠️ Healing Draft with Main content to prevent 404."
+            echo "⚠️ Healing Draft with Main content."
             cp -a prod_site/. public/draft/
             cp -a temp_main_blog/. public/draft/blog/
           fi
 
           # --- CLEANUP ---
-          # 1. Remove build artifacts we just used
           rm -rf ${{ github.workspace }}/temp_main_blog
           rm -rf ${{ github.workspace }}/temp_draft_blog
-
-          # 2. Remove redundant docs folders (from your hugo publishDir)
           rm -rf public/docs
           rm -rf public/draft/docs
-
-          # 3. Remove git metadata
           find public -name ".git*" -exec rm -rf {} + || true
 
       - name: Upload Pages Artifact
@@ -133,5 +96,4 @@ jobs:
           path: public
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
