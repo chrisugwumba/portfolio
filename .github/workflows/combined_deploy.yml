@@ -54,7 +54,7 @@ jobs:
       # Output → prod_site/docs/blog
       # -----------------------------
       - name: Build Main Site
-        working-directory: prod_site
+        working-directory: prod_site/blogs
         run: |
           hugo --baseURL="https://kaustuvbot.github.io/"
 
@@ -63,7 +63,7 @@ jobs:
       # Output → staging_site/docs/blog
       # -----------------------------
       - name: Build Draft Site
-        working-directory: staging_site
+        working-directory: staging_site/blogs
         run: |
           hugo \
             --baseURL="https://kaustuvbot.github.io/draft/" \
