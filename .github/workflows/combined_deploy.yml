@@ -14,98 +14,92 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    # environment:
-    # name: github-pages
-    # url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      # -----------------------------
-      # Checkout repositories
-      # -----------------------------
+      # ------------------------------------------------------
+      # 1. CHECKOUTS (Explicit Refs to fix Merge confusion)
+      # ------------------------------------------------------
       - name: Checkout Main
         uses: actions/checkout@v4
         with:
           ref: main
-          submodules: recursive
-          token: ${{ secrets.CHPAT }}
-          fetch-depth: 0
           path: prod_site
+          fetch-depth: 0
+          token: ${{ secrets.MY_PAT_KEY }}
+          submodules: recursive
 
       - name: Checkout Draft
         uses: actions/checkout@v4
         with:
-          ref: draft
-          submodules: recursive
-          token: ${{ secrets.CHPAT }}
-          fetch-depth: 0
+          ref: refs/heads/draft # <--- FORCE specific branch ref
           path: staging_site
-          clean: false
+          fetch-depth: 0
+          token: ${{ secrets.MY_PAT_KEY }}
+          submodules: recursive
+        continue-on-error: true
 
-      # -----------------------------
-      # Install Hugo
-      # -----------------------------
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: "latest"
           extended: true
 
-      # -----------------------------
-      # Build Production Site
-      # Output → prod_site/docs/blog
-      # -----------------------------
+      # ------------------------------------------------------
+      # 2. BUILD MAIN SITE (The "Golden" Copy)
+      # ------------------------------------------------------
       - name: Build Main Site
         working-directory: prod_site/blogs
-        run: |
-          hugo --baseURL="https://kaustuvbot.github.io/blog/"
+        # We output DIRECTLY to a temp folder to keep it clean
+        run: hugo --baseURL="https://kaustuvbot.github.io/blog/" --destination="../../../temp_main_blog"
 
-      # -----------------------------
-      # Build Draft Site
-      # Output → staging_site/docs/blog
-      # -----------------------------
+      # ------------------------------------------------------
+      # 3. BUILD DRAFT SITE (Try to build, but don't crash)
+      # ------------------------------------------------------
       - name: Build Draft Site
+        id: build_draft
+        if: hashFiles('staging_site/blogs/hugo.toml') != ''
         working-directory: staging_site/blogs
-        run: |
-          hugo \
-            --baseURL="https://kaustuvbot.github.io/draft/blog/" \
-            --buildDrafts \
-            --buildFuture
+        # We output DIRECTLY to a separate temp folder
+        run: hugo --baseURL="https://kaustuvbot.github.io/draft/blog/" --buildDrafts --buildFuture --destination="../../../temp_draft_blog"
+        continue-on-error: true
 
-      # -----------------------------
-      # Merge outputs for Pages
-      # -----------------------------
-      - name: Prepare Deployment Directory
+      # ------------------------------------------------------
+      # 4. ASSEMBLE (The Self-Healing Step)
+      # ------------------------------------------------------
+      - name: Assemble & Heal
         run: |
-
+          # A. Setup Public Directory
           mkdir -p public/blog
           mkdir -p public/draft/blog
 
-
+          # --- DEPLOY MAIN ---
+          # 1. Copy Static Root (Landing Page)
           cp -a prod_site/. public/
-          if [ -d "prod_site/docs/blog" ]; then
-            cp -a prod_site/docs/blog/. public/blog/
-          fi
+          # 2. Copy Built Blog (from temp folder)
+          cp -a temp_main_blog/. public/blog/
 
+          # --- DEPLOY DRAFT (With Healing Logic) ---
 
-           
-
-          if [ -d "staging_site/blogs" ]; then
-            echo "Draft branch found, deploying staging..."
+          # Check if the draft build actually produced files
+          if [ -d "temp_draft_blog" ] && [ "$(ls -A temp_draft_blog)" ]; then
+            echo "✅ Draft build SUCCESS. Deploying Draft content."
+            # Copy Draft Static Root
             cp -a staging_site/. public/draft/
-            cp -a staging_site/docs/blog/. public/draft/blog/
+            # Copy Draft Built Blog
+            cp -a temp_draft_blog/. public/draft/blog/
           else
-            echo "Draft branch missing/empty, using main as fallback to prevent 404..."
-            cp -a prod_site/. public/draft/
-            cp -a prod_site/docs/blog/. public/draft/blog/
+            echo "⚠️ Draft build FAILED or MISSING. Healing with Main content."
+            # COPY THE BUILT MAIN SITE into the Draft folder
+            # This ensures NO 404s. It just looks like Main.
+            cp -a public/* public/draft/ 2>/dev/null || true
+            
+            # Fix the base tag if possible (optional, but helps theme)
+            # This is a crude patch to prevent broken CSS in the cloned version
+            # sed -i 's|/blog/|/draft/blog/|g' public/draft/blog/index.html || true
           fi
 
-          rm -rf public/docs
-          rm -rf public/draft/docs
+          # Cleanup Git metadata so Pages doesn't reject it
           find public -name ".git*" -exec rm -rf {} + || true
 
-      # -----------------------------
-      # Upload + Deploy
-      # -----------------------------
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
