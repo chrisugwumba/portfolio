@@ -43,32 +43,27 @@ jobs:
       # 1. Build Main Blog
       - name: Build Main Site
         run: |
-          # mkdir -p ${{ github.workspace }}/temp_main_blog
-          # cd prod_site/blogs
-          # hugo --baseURL="https://kaustuvbot.github.io/blog/" --destination="${{ github.workspace }}/temp_main_blog"
           cd prod_site/blogs
-          # We pass the subfolder in the baseURL flag
-          hugo --baseURL="https://kaustuvprajapati.com.np/blog/"
+          # The --baseURL flag will now work correctly without doubling
+          hugo --baseURL="https://kaustuvbot.github.io/blog/"
 
-          # IMPORTANT: Your publishDir is ../docs/blog
-          # This means the files are at prod_site/docs/blog
+          # Move files from your publishDir (../docs/blog) to our temp folder
+          # Note: We go UP one level from 'blogs' to find 'docs'
           mkdir -p ${{ github.workspace }}/temp_main_blog
           cp -a ../docs/blog/. ${{ github.workspace }}/temp_main_blog/
-      # 2. Build Draft Blog (No unique ID needed)
+
+      # 2. Build Draft Site
       - name: Build Draft Site
         run: |
 
           if [ -d "staging_site/blogs" ]; then
             cd staging_site/blogs
-            hugo --baseURL="https://kaustuvprajapati.com.np/draft/blog/" --buildDrafts --buildFuture
+            hugo --baseURL="https://kaustuvbot.github.io/draft/blog/" --buildDrafts --buildFuture
             
-            # Files will be at staging_site/docs/blog
+            # Move files from your publishDir
             mkdir -p ${{ github.workspace }}/temp_draft_blog
             cp -a ../docs/blog/. ${{ github.workspace }}/temp_draft_blog/
           fi
-
-        continue-on-error: true
-
       # 3. Assemble, Heal, and Final Cleanup
       - name: Assemble and Cleanup
         run: |
