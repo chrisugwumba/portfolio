@@ -1,0 +1,71 @@
+name: Post-Merge Submodule Sync
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write # needed for pushing the correction commit
+
+jobs:
+  sync-submodule-after-merge:
+    runs-on: ubuntu-latest
+    # Avoid re-running on commits made by this very workflow (safety, though not strictly needed with GITHUB_TOKEN)
+    if: github.event.head_commit.committer.name != 'github-actions[bot]'
+    steps:
+      - name: Checkout main with submodules
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full history to examine parents
+          submodules: recursive
+          token: ${{ secrets.CHPAT }} # use a token with write access; GITHUB_TOKEN also works if permissions are set
+
+      - name: Check if merge commit and sync submodule
+        run: |
+          set -e
+          COMMIT_SHA="${{ github.sha }}"
+
+          # Check if this commit is a merge commit (has at least 2 parents)
+          PARENT_COUNT=$(git rev-list --parents -n 1 $COMMIT_SHA | wc -w)
+          PARENT_COUNT=$((PARENT_COUNT - 1))
+          if [ $PARENT_COUNT -lt 2 ]; then
+            echo "Not a merge commit. Exiting."
+            exit 0
+          fi
+
+          # Get second parent (the merged branch tip, i.e., draft)
+          SECOND_PARENT=$(git rev-parse ${COMMIT_SHA}^2)
+          echo "Second parent (merged branch tip): $SECOND_PARENT"
+
+          # Submodule path (adjust if different)
+          SUBMODULE_PATH="blogs"
+
+          # Get submodule hash from second parent
+          SUBMODULE_HASH_PARENT=$(git ls-tree $SECOND_PARENT $SUBMODULE_PATH | awk '{print $3}')
+          if [ -z "$SUBMODULE_HASH_PARENT" ]; then
+            echo "No submodule entry found in second parent. Exiting."
+            exit 0
+          fi
+          echo "Submodule hash from merged branch: $SUBMODULE_HASH_PARENT"
+
+          # Get submodule hash from current merge commit
+          SUBMODULE_HASH_CURRENT=$(git ls-tree HEAD $SUBMODULE_PATH | awk '{print $3}')
+          echo "Submodule hash on current merge commit: $SUBMODULE_HASH_CURRENT"
+
+          if [ "$SUBMODULE_HASH_PARENT" = "$SUBMODULE_HASH_CURRENT" ]; then
+            echo "Submodule already matches. Exiting."
+            exit 0
+          fi
+
+          # Update the submodule to the exact commit from the merged branch
+          echo "Updating submodule to match merged branch..."
+          git submodule update --init --recursive
+          cd $SUBMODULE_PATH
+          git fetch --all
+          git checkout $SUBMODULE_HASH_PARENT
+          cd ..
+          git add $SUBMODULE_PATH
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Auto-sync: update submodule to merged draft commit"
+          git push
