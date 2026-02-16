@@ -57,10 +57,6 @@ jobs:
       # 2. Build Draft Blog (No unique ID needed)
       - name: Build Draft Site
         run: |
-<<<<<<< HEAD
-=======
-
->>>>>>> 566d768 (new updated combined_deploy.yml for fixes)
           if [ -d "staging_site/blogs" ]; then
             cd staging_site/blogs
             hugo --baseURL="https://kaustuvprajapati.com.np/draft/blog/" --buildDrafts --buildFuture
