@@ -11,7 +11,7 @@
 
 /* Sidebar tabs */
 .exp-tabs {
-    border-left: 2px solid var(--color-border, #363940);
+    border-right: 2px solid var(--color-border, #363940);
     display: flex;
     flex-direction: column;
 }
@@ -24,8 +24,8 @@
     text-align: left;
     border: none;
     background: transparent;
-    border-left: 2px solid transparent;
-    margin-left: -2px;
+    border-right: 2px solid transparent;
+    margin-right: -2px;
     cursor: pointer;
     transition: all 0.2s ease;
     font-family: 'Poppins', sans-serif;
@@ -33,12 +33,12 @@
 
 .exp-tab:hover {
     background: var(--color-surface, #23252a);
-    border-left-color: var(--color-accent-soft, #e8d4bc);
+    border-right-color: var(--color-accent-soft, #e8d4bc);
 }
 
 .exp-tab.active {
     background: var(--color-surface, #23252a);
-    border-left-color: var(--color-accent, #d4a574);
+    border-right-color: var(--color-accent, #d4a574);
 }
 
 .exp-tab-company {
@@ -134,6 +134,100 @@
 }
 
 
+/* ==================== SUB-NAVIGATION (project tabs within a panel) ==================== */
+
+.exp-sub-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 4px;
+    border-bottom: 1px solid var(--color-border, #363940);
+    margin-bottom: 20px;
+    scrollbar-width: none;
+}
+
+.exp-sub-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.exp-sub-tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    background: transparent;
+    color: var(--color-secondary-text, #a8adb8);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.exp-sub-tab:hover {
+    color: var(--color-accent-soft, #e8d4bc);
+    border-bottom-color: var(--color-accent-soft, #e8d4bc);
+}
+
+.exp-sub-tab.active {
+    color: var(--color-accent, #d4a574);
+    border-bottom-color: var(--color-accent, #d4a574);
+}
+
+.exp-sub-panel {
+    display: none;
+}
+
+.exp-sub-panel.active {
+    display: block;
+}
+
+.exp-sub-overview {
+    font-size: 0.875rem;
+    color: var(--color-secondary-text, #a8adb8);
+    margin-bottom: 14px;
+    line-height: 1.6;
+}
+
+.exp-sub-panel h5 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent, #d4a574);
+    margin: 12px 0 6px;
+}
+
+/* ==================== SKILL BADGES ==================== */
+
+.exp-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.exp-skill-badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-accent-soft, #e8d4bc);
+    background: rgba(212, 165, 116, 0.08);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    border-radius: 9999px;
+    padding: 2px 10px;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.exp-skill-badge:hover {
+    background: rgba(212, 165, 116, 0.15);
+    border-color: rgba(212, 165, 116, 0.4);
+}
+
+
 /* ==================== RESPONSIVE: Mobile stacks horizontally ==================== */
 
 @media (max-width: 640px) {
@@ -144,28 +238,28 @@
 
     .exp-tabs {
         flex-direction: row;
-        border-left: none;
+        border-right: none;
         border-bottom: 2px solid var(--color-border, #363940);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
 
     .exp-tab {
-        border-left: none;
+        border-right: none;
         border-bottom: 2px solid transparent;
-        margin-left: 0;
+        margin-right: 0;
         margin-bottom: -2px;
         min-width: 140px;
         white-space: nowrap;
     }
 
     .exp-tab:hover {
-        border-left-color: transparent;
+        border-right-color: transparent;
         border-bottom-color: var(--color-accent-soft, #e8d4bc);
     }
 
     .exp-tab.active {
-        border-left-color: transparent;
+        border-right-color: transparent;
         border-bottom-color: var(--color-accent, #d4a574);
     }
 

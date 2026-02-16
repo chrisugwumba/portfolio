@@ -35,24 +35,28 @@ window.addEventListener('scroll', () => {
 });
 
 
-// ==================== SMOOTH SCROLL ====================
+// ==================== SMOOTH SCROLL (event delegation) ====================
+// Uses delegation so it works for anchor links injected after page load.
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+document.addEventListener('click', function (e) {
+    const anchor = e.target.closest('a[href^="#"]');
+    if (!anchor) return;
+
+    const href = anchor.getAttribute('href');
+    if (href === '#') return;
+
+    const target = document.querySelector(href);
+    if (target) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const headerOffset = 80;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-        if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
 });
 
 
