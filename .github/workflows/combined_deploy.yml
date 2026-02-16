@@ -1,0 +1,109 @@
+name: Deploy Main and Draft
+
+on:
+  push:
+    branches: [main, draft]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: prod_site
+          fetch-depth: 0
+          token: ${{ secrets.CHPAT }}
+          submodules: recursive
+
+      - name: Checkout Draft
+        uses: actions/checkout@v4
+        with:
+          ref: draft
+          path: staging_site
+          fetch-depth: 0
+          token: ${{ secrets.CHPAT }}
+          submodules: recursive
+        continue-on-error: true
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "latest"
+          extended: true
+
+      # 1. Build Main Blog
+      - name: Build Main Site
+        run: |
+          # mkdir -p ${{ github.workspace }}/temp_main_blog
+          # cd prod_site/blogs
+          # hugo --baseURL="https://kaustuvbot.github.io/blog/" --destination="${{ github.workspace }}/temp_main_blog"
+          cd prod_site/blogs
+          # We pass the subfolder in the baseURL flag
+          hugo --baseURL="https://kaustuvprajapati.com.np/blog/"
+
+          # IMPORTANT: Your publishDir is ../docs/blog
+          # This means the files are at prod_site/docs/blog
+          mkdir -p ${{ github.workspace }}/temp_main_blog
+          cp -a ../docs/blog/. ${{ github.workspace }}/temp_main_blog/
+      # 2. Build Draft Blog (No unique ID needed)
+      - name: Build Draft Site
+        run: |
+
+          if [ -d "staging_site/blogs" ]; then
+            cd staging_site/blogs
+            hugo --baseURL="https://kaustuvprajapati.com.np/draft/blog/" --buildDrafts --buildFuture
+            
+            # Files will be at staging_site/docs/blog
+            mkdir -p ${{ github.workspace }}/temp_draft_blog
+            cp -a ../docs/blog/. ${{ github.workspace }}/temp_draft_blog/
+          fi
+
+        continue-on-error: true
+
+      # 3. Assemble, Heal, and Final Cleanup
+      - name: Assemble and Cleanup
+        run: |
+          # Setup structure
+          mkdir -p public/blog
+          mkdir -p public/draft/blog
+
+          # Deploy MAIN
+          cp -a prod_site/. public/
+          if [ -d "temp_main_blog" ]; then
+            cp -a temp_main_blog/. public/blog/
+          fi
+
+          # Deploy DRAFT (with Self-Healing)
+          if [ -d "temp_draft_blog" ] && [ "$(ls -A temp_draft_blog 2>/dev/null)" ]; then
+            echo "✅ Using fresh Draft build."
+            cp -a staging_site/. public/draft/
+            cp -a temp_draft_blog/. public/draft/blog/
+          else
+            echo "⚠️ Healing Draft with Main content."
+            cp -a prod_site/. public/draft/
+            cp -a temp_main_blog/. public/draft/blog/
+          fi
+
+          # --- CLEANUP ---
+          rm -rf ${{ github.workspace }}/temp_main_blog
+          rm -rf ${{ github.workspace }}/temp_draft_blog
+          rm -rf public/docs
+          rm -rf public/draft/docs
+          find public -name ".git*" -exec rm -rf {} + || true
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
