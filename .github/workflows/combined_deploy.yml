@@ -92,6 +92,9 @@ jobs:
             cp -a prod_site/. public/draft/
             cp -a temp_main_blog/. public/draft/blog/
           fi
+          # --- ADD ROBOTS.TXT ---
+          echo "User-agent: *" > public/robots.txt
+          echo "Disallow: /draft/" >> public/robots.txt
 
           # --- CLEANUP ---
           rm -rf ${{ github.workspace }}/temp_main_blog
