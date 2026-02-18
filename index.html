@@ -1366,6 +1366,24 @@
     <script src="js/form.js"></script>
     <script src="js/experience.js"></script>
     <script src="js/theme.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            var tabMap = {
+                '#jf': '0',
+                '#yirifi': '1',
+                '#techkraft': '2',
+                '#ambit': '3'
+            };
+            var hash = window.location.hash.toLowerCase();
+            var index = tabMap[hash];
+            if (index !== undefined) {
+                var section = document.getElementById('experience');
+                if (section) section.scrollIntoView({ behavior: 'smooth' });
+                var tabBtn = document.querySelector('.exp-tab[data-index="' + index + '"]');
+                if (tabBtn) tabBtn.click();
+            }
+        });
+    </script>
 </body>
 </html>
 

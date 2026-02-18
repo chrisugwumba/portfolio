@@ -79,4 +79,8 @@ function initExperience() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', initExperience);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initExperience);
+} else {
+    initExperience();
+}
