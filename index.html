@@ -1202,7 +1202,177 @@
             <h2 class="section-title">Featured Projects</h2>
             <p class="section-subtitle">A showcase of my technical expertise in DevOps automation, cloud infrastructure,
                 and compliance frameworks</p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Project Tab Navigation -->
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex bg-card-bg rounded-lg p-1 border border-border-color">
+                    <button onclick="switchProjectTab('personal')" id="tab-personal"
+                        class="project-tab active px-5 py-2 rounded-md text-sm font-semibold transition-all duration-300">
+                        Personal
+                    </button>
+                    <button onclick="switchProjectTab('company')" id="tab-company"
+                        class="project-tab px-5 py-2 rounded-md text-sm font-semibold transition-all duration-300">
+                        Company
+                    </button>
+                </div>
+            </div>
+
+            <!-- Personal Projects -->
+            <div id="projects-personal" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- tf-modules -->
+                <div
+                    class="bg-card-bg p-6 rounded-xl shadow-subtle card-hover flex flex-col reveal border border-border-color">
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="bg-tag p-3 rounded-lg border border-accent/20"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="text-accent">
+                                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+                                    <path d="M18 14h-8" /><path d="M15 18h-5" /><path d="M10 6h8v4h-8V6Z" />
+                                </svg></div>
+                            <div
+                                class="bg-tag text-tag-text text-xs font-semibold px-2 py-1 rounded-full border border-accent/20">
+                                IaC</div>
+                        </div>
+                        <h3 class="text-xl font-bold text-heading mb-2 card-title">tf-modules</h3>
+                        <p class="text-sm mb-4 text-primary-text">A collection of reusable Terraform modules for
+                            provisioning and managing cloud infrastructure. Designed for modularity, consistency,
+                            and rapid deployment across environments.</p>
+                        <div class="pt-4 border-t border-border-color">
+                            <h4 class="font-semibold text-sm text-heading mb-2">Technologies Used:</h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span
+                                    class="bg-tag text-primary-text text-xs font-medium px-2 py-1 rounded border border-accent/10">HCL</span>
+                                <span
+                                    class="bg-tag text-primary-text text-xs font-medium px-2 py-1 rounded border border-accent/10">Terraform</span>
+                                <span
+                                    class="bg-tag text-primary-text text-xs font-medium px-2 py-1 rounded border border-accent/10">AWS</span>
+                            </div>
+                            <h4 class="font-semibold text-sm text-heading mb-2">Key Features:</h4>
+                            <ul class="space-y-1 text-sm custom-bullets text-primary-text">
+                                <li>Reusable, composable module architecture</li>
+                                <li>Consistent infrastructure provisioning</li>
+                                <li>Multi-environment deployment support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-auto pt-6 text-center">
+                        <a href="https://github.com/kaustuvbot/tf-modules" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 text-sm font-medium text-accent border border-accent/30 rounded-lg px-4 py-2 hover:bg-accent/10 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                                <path d="M9 18c-4.51 2-5-2-7-2" />
+                            </svg>
+                            <span>View on GitHub</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- kwik-cmd -->
+                <div
+                    class="bg-card-bg p-6 rounded-xl shadow-subtle card-hover flex flex-col reveal border border-border-color">
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="bg-tag p-3 rounded-lg border border-accent/20"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="text-accent">
+                                    <polyline points="4 17 10 11 4 5" /><line x1="12" x2="20" y1="19" y2="19" />
+                                </svg></div>
+                            <div
+                                class="bg-tag text-tag-text text-xs font-semibold px-2 py-1 rounded-full border border-accent/20">
+                                Tooling</div>
+                        </div>
+                        <h3 class="text-xl font-bold text-heading mb-2 card-title">kwik-cmd</h3>
+                        <p class="text-sm mb-4 text-primary-text">A versatile KDE Plasma widget for quickly running,
+                            managing, and storing custom shell commands from the desktop panel. Simple and intuitive
+                            interface for developers, sysadmins, and power users who need to run tasks on the fly.</p>
+                        <div class="pt-4 border-t border-border-color">
+                            <h4 class="font-semibold text-sm text-heading mb-2">Technologies Used:</h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span
+                                    class="bg-tag text-primary-text text-xs font-medium px-2 py-1 rounded border border-accent/10">Python</span>
+                                <span
+                                    class="bg-tag text-primary-text text-xs font-medium px-2 py-1 rounded border border-accent/10">KDE
+                                    Plasma</span>
+                                <span
+                                    class="bg-tag text-primary-text text-xs font-medium px-2 py-1 rounded border border-accent/10">Shell</span>
+                            </div>
+                            <h4 class="font-semibold text-sm text-heading mb-2">Key Features:</h4>
+                            <ul class="space-y-1 text-sm custom-bullets text-primary-text">
+                                <li>Quick command execution from desktop panel</li>
+                                <li>Add, update, delete, and store commands</li>
+                                <li>Lightweight and intuitive interface</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-auto pt-6 text-center">
+                        <a href="https://github.com/kaustuvbot/kwik-cmd" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 text-sm font-medium text-accent border border-accent/30 rounded-lg px-4 py-2 hover:bg-accent/10 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                                <path d="M9 18c-4.51 2-5-2-7-2" />
+                            </svg>
+                            <span>View on GitHub</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- devopsctl -->
+                <div
+                    class="bg-card-bg p-6 rounded-xl shadow-subtle card-hover flex flex-col reveal border border-border-color">
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="bg-tag p-3 rounded-lg border border-accent/20"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="text-accent">
+                                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2.1l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2.1l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg></div>
+                            <div
+                                class="bg-tag text-tag-text text-xs font-semibold px-2 py-1 rounded-full border border-accent/20">
+                                DevOps</div>
+                        </div>
+                        <h3 class="text-xl font-bold text-heading mb-2 card-title">devopsctl</h3>
+                        <p class="text-sm mb-4 text-primary-text">A unified DevOps command-line toolkit for streamlining
+                            infrastructure management, deployment workflows, and operational tasks. Currently in early
+                            development.</p>
+                        <div class="pt-4 border-t border-border-color">
+                            <h4 class="font-semibold text-sm text-heading mb-2">Technologies Used:</h4>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span
+                                    class="bg-tag text-primary-text text-xs font-medium px-2 py-1 rounded border border-accent/10">Coming
+                                    Soon</span>
+                            </div>
+                            <h4 class="font-semibold text-sm text-heading mb-2">Planned Features:</h4>
+                            <ul class="space-y-1 text-sm custom-bullets text-primary-text">
+                                <li>Unified DevOps CLI interface</li>
+                                <li>Infrastructure management utilities</li>
+                                <li>Deployment workflow automation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-auto pt-6 text-center">
+                        <a href="https://github.com/kaustuvbot/devopsctl" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 text-sm font-medium text-accent border border-accent/30 rounded-lg px-4 py-2 hover:bg-accent/10 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                                <path d="M9 18c-4.51 2-5-2-7-2" />
+                            </svg>
+                            <span>View on GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Projects -->
+            <div id="projects-company" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" style="display: none;">
                 <!-- Project 1 -->
                 <div
                     class="bg-card-bg p-6 rounded-xl shadow-subtle card-hover flex flex-col reveal border border-border-color">
