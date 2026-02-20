@@ -45,36 +45,37 @@ function initExperience() {
         });
     });
 
-    // ── Project sub-tab navigation ──
-    const subTabs = document.querySelectorAll('.exp-sub-tab');
-    const subPanels = document.querySelectorAll('.exp-sub-panel');
+    // ── Project sub-tab navigation (scoped per nav group) ──
+    document.querySelectorAll('.exp-sub-nav').forEach(nav => {
+        var tabs = nav.querySelectorAll('.exp-sub-tab');
+        var panel = nav.closest('.exp-panel');
+        var panels = panel ? panel.querySelectorAll('.exp-sub-panel') : [];
 
-    subTabs.forEach((tab, i) => {
-        tab.addEventListener('click', () => {
-            subTabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
+        tabs.forEach((tab, i) => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                panels.forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                var target = document.getElementById(tab.getAttribute('aria-controls'));
+                if (target) target.classList.add('active');
             });
-            subPanels.forEach(p => p.classList.remove('active'));
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-            const target = document.getElementById('exp-sub-panel-' + tab.dataset.subIndex);
-            if (target) target.classList.add('active');
-        });
 
-        tab.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                const next = subTabs[i + 1] || subTabs[0];
-                next.click();
-                next.focus();
-            }
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                const prev = subTabs[i - 1] || subTabs[subTabs.length - 1];
-                prev.click();
-                prev.focus();
-            }
+            tab.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    (tabs[i + 1] || tabs[0]).click();
+                    (tabs[i + 1] || tabs[0]).focus();
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    (tabs[i - 1] || tabs[tabs.length - 1]).click();
+                    (tabs[i - 1] || tabs[tabs.length - 1]).focus();
+                }
+            });
         });
     });
 }

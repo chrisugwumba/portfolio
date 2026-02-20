@@ -177,7 +177,7 @@
                                 <polyline points="15 3 21 3 21 9" />
                                 <line x1="10" y1="14" x2="21" y2="3" />
                             </svg></a>
-                        <a href="https://1drv.ms/w/c/20de537a95b4d592/IQBHANEDWbjFRrijfVwl2vMaAYlFa6XM5W7UoFprecw3FwI?e=NZPz1c"
+                        <!-- <a href="https://1drv.ms/w/c/20de537a95b4d592/IQBHANEDWbjFRrijfVwl2vMaAYlFa6XM5W7UoFprecw3FwI?e=NZPz1c"
                             target="_blank" rel="noopener noreferrer"
                             class="bg-surface hover:bg-surface-elevated text-primary-text font-semibold py-3 px-6 rounded-lg transition-all duration-300 border border-border-color flex items-center gap-2">View
                             CV <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -186,7 +186,7 @@
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                                 <polyline points="15 3 21 3 21 9" />
                                 <line x1="10" y1="14" x2="21" y2="3" />
-                            </svg></a>
+                            </svg></a> -->
                     </div>
                     <div class="flex items-center space-x-4">
                         <a href="https://github.com/kaustuvbot" target="_blank" rel="noopener noreferrer"
@@ -465,7 +465,7 @@
                     </button>
                     <button class="exp-tab" role="tab" aria-selected="false" aria-controls="exp-panel-3" data-index="3">
                         <span class="exp-tab-company">Ambit R&amp;D</span>
-                        <span class="exp-tab-role">AWS Infra &amp; Linux Admin</span>
+                        <span class="exp-tab-role">AWS Devops &amp; Linux Admin</span>
                     </button>
                 </div>
 
@@ -473,7 +473,7 @@
                 <div id="exp-panel-0" class="exp-panel active" role="tabpanel">
                     <h3 class="exp-title">DevOps &amp; Cloud Consultant <span class="exp-company">@ J &amp; F
                             Consultancy</span></h3>
-                    <p class="exp-dates">Feb 2025 - Present &middot; London, UK</p>
+                    <p class="exp-dates">Mar 2025 - Present &middot; London, UK</p>
                     <p class="exp-summary">Consulting multiple enterprise clients through J &amp; F Consultancy.</p>
                     <p class="exp-summary">PROJECTS</p>
 
@@ -765,80 +765,410 @@
                     <p class="exp-dates">Apr 2024 - Oct 2024 &middot; Singapore</p>
                     <p class="exp-summary">Led serverless compliance automation, Vault administration, and
                         infrastructure provisioning for a Singapore-based startup.</p>
-                    <ul class="exp-achievements">
-                        <li><strong>Git Compliance Engine:</strong> Led serverless Git compliance engine
-                            (Python/Lambda/GitHub API) automating branch protection enforcement, credential scanning,
-                            and compliance reporting across organization repositories.</li>
-                        <li><strong>Tooling Automation:</strong> Automated on/offboarding of company-used tools,
-                            reducing manual intervention by 80%.</li>
-                        <li><strong>HashiCorp Vault:</strong> Deployed HashiCorp Vault on VPS with AWS Secrets Engine,
-                            implementing policy-based token access control and dynamic credential creation for secure,
-                            TTL access with Shell script and HCL.</li>
-                        <li><strong>Terragrunt &amp; Terraform Cloud:</strong> Implementation supporting
-                            multi-environment deployment. Managed user-required infra environment provisioning.</li>
-                        <li><strong>ISO/MAS Compliance:</strong> Implemented AWS Config, Custom CloudFormation templates
-                            and Security Hub to automate MAS (Singapore) and ISO compliance monitoring, achieving 100%
-                            policy adherence and reducing audit prep time
-                            by 20%.</li>
-                        <li><strong>Infrastructure &amp; Observability:</strong> Set up infrastructure for various teams
-                            leveraging SLA, SLI, SLO, and KPI monitoring with NewRelic. Managed Docker Compose,
-                            artifacts, and pipelines for Airbyte, Airflow, Apache
-                            Flink, and FastAPI.</li>
-                    </ul>
+                    <p class="exp-summary">PROJECTS</p>
+
+                    <!-- Yirifi project sub-navigation -->
+                    <div class="exp-sub-nav" role="tablist" aria-label="Yirifi Projects">
+                        <button class="exp-sub-tab active" role="tab" aria-selected="true"
+                            aria-controls="yirifi-sub-panel-0">Git Compliance</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="yirifi-sub-panel-1">HashiCorp Vault</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="yirifi-sub-panel-2">Terragrunt &amp; TF Cloud</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="yirifi-sub-panel-3">Additional</button>
+                    </div>
+
+                    <!-- Yirifi Sub-panel 0: Git Compliance Engine -->
+                    <div id="yirifi-sub-panel-0" class="exp-sub-panel active" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">GitHub API</span>
+                            <span class="exp-skill-badge">AWS Lambda</span>
+                            <span class="exp-skill-badge">AWS IAM</span>
+                            <span class="exp-skill-badge">Python</span>
+                            <span class="exp-skill-badge">Bash</span>
+                        </div>
+                        <p class="exp-sub-overview">Designed and deployed a serverless compliance engine to automate
+                            GitHub configurations across the entire organisation. Enforced branch protection policies,
+                            secrets scanning, and configuration drift management at scale &mdash; eliminating
+                            manual overhead and achieving full audit trail coverage.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>GitHub organisation-wide configuration automation</li>
+                            <li>Branch protection policy enforcement</li>
+                            <li>Credential leak prevention and secrets scanning</li>
+                            <li>Configuration drift detection and remediation</li>
+                            <li>Audit trail implementation</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Achieved <strong>100% branch protection compliance</strong></li>
+                            <li>Reduced manual configuration time by <strong>90%</strong>, saving <strong>50+ hours
+                                    monthly</strong></li>
+                            <li>Reached <strong>99.9% configuration accuracy</strong></li>
+                            <li>Achieved <strong>95% reduction in misconfigurations</strong></li>
+                            <li>Maintained <strong>100% audit trail coverage</strong></li>
+                            <li><strong>0 credential leaks</strong> across the organisation</li>
+                        </ul>
+                    </div>
+
+                    <!-- Yirifi Sub-panel 1: HashiCorp Vault -->
+                    <div id="yirifi-sub-panel-1" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">HashiCorp Vault</span>
+                            <span class="exp-skill-badge">AWS Secrets Engine</span>
+                            <span class="exp-skill-badge">AWS IAM</span>
+                            <span class="exp-skill-badge">Policy-as-Code</span>
+                            <span class="exp-skill-badge">VPS (Linux)</span>
+                            <span class="exp-skill-badge">Bash</span>
+                        </div>
+                        <p class="exp-sub-overview">Deployed and configured HashiCorp Vault on a self-hosted VPS with
+                            AWS Secrets Engine integration for dynamic credential generation and policy-based access
+                            control. Eliminated all hard-coded credentials and implemented automated
+                            secret rotation with TTL-based access controls.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>HashiCorp Vault deployment and configuration</li>
+                            <li>AWS Secrets Engine integration</li>
+                            <li>Dynamic credential provisioning setup</li>
+                            <li>Policy-as-code access control implementation</li>
+                            <li>Automated secret rotation configuration</li>
+                            <li>Centralised audit trail setup</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Achieved <strong>0 hard-coded credentials</strong> across all environments</li>
+                            <li>Enabled <strong>100% dynamic credential provisioning</strong></li>
+                            <li>Implemented <strong>automated rotation</strong> with sub-minute provisioning</li>
+                            <li>Enforced <strong>TTL-based access</strong> and policy-as-code controls</li>
+                            <li>Established <strong>centralised audit trail</strong> for all secret access</li>
+                        </ul>
+                    </div>
+
+                    <!-- Yirifi Sub-panel 2: Terragrunt & Terraform Cloud -->
+                    <div id="yirifi-sub-panel-2" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">Terragrunt</span>
+                            <span class="exp-skill-badge">Terraform Cloud</span>
+                            <span class="exp-skill-badge">GitHub Actions</span>
+                            <span class="exp-skill-badge">GitOps</span>
+                            <span class="exp-skill-badge">AWS</span>
+                            <span class="exp-skill-badge">Remote State</span>
+                        </div>
+                        <p class="exp-sub-overview">Implemented a scalable infrastructure-as-code solution using
+                            Terragrunt and Terraform Cloud for multi-environment deployments. Established GitOps
+                            workflows with automated plan generation on pull requests and centralised remote
+                            state management to eliminate duplication and ensure environment parity.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>Terragrunt module architecture design</li>
+                            <li>Terraform Cloud workspace configuration</li>
+                            <li>GitOps workflow implementation</li>
+                            <li>PR-triggered automated plan generation</li>
+                            <li>Centralised state management and locking</li>
+                            <li>Cross-provider orchestration</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Reduced code duplication by <strong>80%</strong></li>
+                            <li>Achieved <strong>70% faster environment provisioning</strong></li>
+                            <li>Automated plan generation on every PR</li>
+                            <li>Maintained <strong>consistent environment parity</strong></li>
+                            <li><strong>Zero state conflicts</strong> via remote locking</li>
+                        </ul>
+                    </div>
+
+                    <!-- Yirifi Sub-panel 3: Additional Contributions -->
+                    <div id="yirifi-sub-panel-3" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">AWS Amplify</span>
+                            <span class="exp-skill-badge">AWS Config</span>
+                            <span class="exp-skill-badge">Security Hub</span>
+                            <span class="exp-skill-badge">CloudFormation</span>
+                            <span class="exp-skill-badge">New Relic</span>
+                            <span class="exp-skill-badge">Docker Compose</span>
+                            <span class="exp-skill-badge">Airflow</span>
+                            <span class="exp-skill-badge">Airbyte</span>
+                            <span class="exp-skill-badge">Apache Flink</span>
+                            <span class="exp-skill-badge">FastAPI</span>
+                            <span class="exp-skill-badge">GitLab CI</span>
+                        </div>
+                        <p class="exp-sub-overview">Delivered a range of supporting infrastructure, compliance, and
+                            automation initiatives across the engineering organisation to strengthen operational
+                            reliability, security posture, and developer experience.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>Automated user provisioning and deprovisioning across Discord, GitHub, AWS, and Vault
+                            </li>
+                            <li>Deployed high-traffic Next.js application on AWS Amplify with full CI/CD automation</li>
+                            <li>Implemented AWS Config, Security Hub, and custom CloudFormation templates for automated
+                                compliance monitoring</li>
+                            <li>Configured SLA/SLI/SLO/KPI monitoring using New Relic</li>
+                            <li>Managed Docker Compose pipelines and artifacts for Airbyte, Airflow, Apache Flink, and
+                                FastAPI
+                            </li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Contributed to <strong>100% policy adherence</strong> for MAS (Singapore) and ISO
+                                standards
+                            </li>
+                            <li>Centralised compliance monitoring across infrastructure</li>
+                            <li>Improved observability with full SLA/SLI/SLO coverage</li>
+                            <li>Streamlined data pipeline operations across multiple open-source tools</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div id="exp-panel-2" class="exp-panel" role="tabpanel">
                     <h3 class="exp-title">SE2 &rarr; SE3 <span class="exp-company">@ Techkraft Inc. / Abacus
                             Insights</span></h3>
                     <p class="exp-dates">Aug 2022 - Apr 2024 &middot; Lalitpur, Nepal</p>
-                    <p class="exp-summary">Progressed from DevOps Engineer (Cloud &amp; Platform Engineering) to
-                        Dispatch Engineer, leading hybrid cloud infrastructure across AWS &amp; Azure, compliance
-                        automation, and CI/CD across 200+ projects.</p>
-                    <h4 class="text-sm font-semibold text-accent mt-4 mb-2">SE3 — Dispatch Engineer</h4>
-                    <ul class="exp-achievements">
-                        <li><strong>Kubernetes &amp; Containers:</strong> Developed Dockerfiles and managed
-                            containerized workloads across Kubernetes and AKS clusters, implementing chaos engineering
-                            practices for load testing and resilience validation.</li>
-                        <li><strong>Git Compliance:</strong> Maintained compliance enforcement across 200+ repositories
-                            via centralized GitLab policies, resulting in a 35% reduction in security risks.</li>
-                        <li><strong>CI/CD &amp; Migration:</strong> Automated runner upgrades for 200+ projects (80%
-                            faster deployments) and led Python 3.7-to-3.11 migration with zero downtime.</li>
-                        <li><strong>Serverless Backend:</strong> Led and architected secure, multi-environment
-                            serverless backend with VPN authentication and automated Lambda layer deployments, reducing
-                            manual effort by 25%.</li>
-                    </ul>
-                    <h4 class="text-sm font-semibold text-accent mt-4 mb-2">SE2 — DevOps Engineer (Cloud &amp; Platform
-                        Engineering – AWS &amp; Azure)</h4>
-                    <ul class="exp-achievements">
-                        <li><strong>Hybrid Cloud Infrastructure:</strong> Designed and deployed hybrid cloud
-                            infrastructure across AWS and Microsoft Azure environments using Infrastructure-as-Code
-                            (Terraform), supporting multi-environment application deployments.</li>
-                        <li><strong>AKS Cluster Management:</strong> Provisioned and managed Azure Kubernetes Service
-                            (AKS) clusters, implementing container lifecycle management, node pool configuration,
-                            RBAC-based access control, and secure networking practices.</li>
-                        <li><strong>Azure DevOps CI/CD:</strong> Developed Azure DevOps CI/CD pipelines for .NET and
-                            Node.js applications, embedding security scanning (SAST), automated builds, and container
-                            image deployments to AKS.</li>
-                        <li><strong>Azure SQL &amp; Identity:</strong> Configured Azure SQL (PaaS) and managed database
-                            connectivity and access policies. Implemented identity and access management across Azure
-                            Active Directory (AAD) and AWS IAM with least-privilege
-                            RBAC.
-                        </li>
-                        <li><strong>Serverless Data Pipelines:</strong> Architected decoupled serverless data pipeline
-                            integrating Jira-Replicon using event-driven architecture (Lambda, EventBridge, Glue,
-                            DynamoDB) with Terraform IaC and GitOps-first deployment,
-                            reducing manual processing by 40% and event handling latency by 30%.</li>
-                        <li><strong>Monitoring &amp; Observability:</strong> Integrated monitoring using Azure Monitor,
-                            CloudWatch, and Splunk to enhance system visibility and operational resilience.</li>
-                        <li><strong>DevSecOps &amp; Cross-Functional:</strong> Collaborated with development, security,
-                            and infrastructure teams to embed DevSecOps practices within CI/CD workflows. Managed
-                            onboarding, security training, and Clean Room setup
-                            for ISO standardization.</li>
-                    </ul>
+                    <p class="exp-summary">Promoted from SE2 (DevOps Engineer &mdash; ML/Data Platform) to SE3 (Dispatch
+                        Engineer) based on technical ownership, project leadership, and consistent delivery across cloud
+                        infrastructure and DevSecOps initiatives.</p>
+                    <p class="exp-summary">PROJECTS</p>
+
+                    <!-- Techkraft project sub-navigation -->
+                    <div class="exp-sub-nav" role="tablist" aria-label="Techkraft Projects">
+                        <button class="exp-sub-tab active" role="tab" aria-selected="true"
+                            aria-controls="tk-sub-panel-0">Jira Automation</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="tk-sub-panel-1">Serverless Backend</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="tk-sub-panel-2">Azure CI/CD</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="tk-sub-panel-3">Runner &amp; Python Migration</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="tk-sub-panel-4">Hybrid Cloud &amp; K8s</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false" aria-controls="tk-sub-panel-5">Git
+                            Compliance</button>
+                        <button class="exp-sub-tab" role="tab" aria-selected="false"
+                            aria-controls="tk-sub-panel-6">Observability</button>
+                    </div>
+
+                    <!-- TK Sub-panel 0: Jira Automation -->
+                    <div id="tk-sub-panel-0" class="exp-sub-panel active" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">AWS Lambda</span>
+                            <span class="exp-skill-badge">EventBridge</span>
+                            <span class="exp-skill-badge">AWS Glue</span>
+                            <span class="exp-skill-badge">DynamoDB</span>
+                            <span class="exp-skill-badge">Terraform</span>
+                            <span class="exp-skill-badge">GitLab CI</span>
+                            <span class="exp-skill-badge">Python</span>
+                        </div>
+                        <p class="exp-sub-overview">Led and architected a decoupled serverless data pipeline integrating
+                            Jira and Replicon using event-driven architecture. Designed the full solution from
+                            infrastructure to deployment, implementing IaC with Terraform and a GitOps-first
+                            delivery model using the internal Seiji deployment tool.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>End-to-end solution architecture and lead ownership</li>
+                            <li>Serverless pipeline design with Lambda and EventBridge</li>
+                            <li>Terraform IaC authoring and state management</li>
+                            <li>GitOps-driven deployment via Seiji</li>
+                            <li>DynamoDB data modelling and Glue job configuration</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Reduced manual processing by <strong>40%</strong></li>
+                            <li>Delivered fully automated, event-driven integration between Jira and Replicon</li>
+                            <li>Established GitOps-first deployment standard for the data team</li>
+                            <li>Zero manual infrastructure intervention post-deployment</li>
+                        </ul>
+                    </div>
+
+                    <!-- TK Sub-panel 1: Serverless Backend -->
+                    <div id="tk-sub-panel-1" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">AWS Lambda</span>
+                            <span class="exp-skill-badge">API Gateway</span>
+                            <span class="exp-skill-badge">AWS Cognito</span>
+                            <span class="exp-skill-badge">AWS VPC</span>
+                            <span class="exp-skill-badge">AWS IAM</span>
+                            <span class="exp-skill-badge">AWS SAM</span>
+                            <span class="exp-skill-badge">Terraform</span>
+                            <span class="exp-skill-badge">GitLab CI</span>
+                        </div>
+                        <p class="exp-sub-overview">Architected and developed a secure, multi-environment serverless
+                            backend with VPN-based authentication and automated Lambda layer deployments. Designed
+                            controlled access strategies and environment isolation to meet security and
+                            compliance requirements across dev, staging, and production.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>Serverless architecture design across multiple environments</li>
+                            <li>VPN authentication integration</li>
+                            <li>Automated Lambda layer deployment pipeline</li>
+                            <li>IAM policy design and least-privilege access enforcement</li>
+                            <li>Environment isolation and access control strategy</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Reduced manual deployment effort by <strong>25%</strong></li>
+                            <li>Achieved consistent, automated Lambda layer management</li>
+                            <li>Enforced secure access across all environments via VPN and Cognito</li>
+                            <li>Standardised multi-environment serverless delivery</li>
+                        </ul>
+                    </div>
+
+                    <!-- TK Sub-panel 2: Azure CI/CD -->
+                    <div id="tk-sub-panel-2" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">Azure DevOps</span>
+                            <span class="exp-skill-badge">Node.js</span>
+                            <span class="exp-skill-badge">.NET</span>
+                            <span class="exp-skill-badge">SonarQube</span>
+                            <span class="exp-skill-badge">Ansible</span>
+                            <span class="exp-skill-badge">GitHub Actions</span>
+                            <span class="exp-skill-badge">Hybrid Runners</span>
+                        </div>
+                        <p class="exp-sub-overview">Architected and developed an Azure DevOps CI/CD pipeline for Node.js
+                            and .NET applications with hybrid cloud runner support. Integrated SonarQube for SAST and
+                            Ansible for server configuration management within a GitOps workflow.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>CI/CD pipeline design and implementation</li>
+                            <li>Hybrid cloud runner configuration</li>
+                            <li>SonarQube SAST integration</li>
+                            <li>Ansible-based server configuration automation</li>
+                            <li>GitOps workflow enforcement</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Improved pipeline efficiency by <strong>20%</strong></li>
+                            <li>Embedded static security analysis directly into the delivery pipeline</li>
+                            <li>Standardised server configuration via Ansible across environments</li>
+                        </ul>
+                    </div>
+
+                    <!-- TK Sub-panel 3: Runner & Python Migration -->
+                    <div id="tk-sub-panel-3" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">GitLab CI</span>
+                            <span class="exp-skill-badge">Python</span>
+                            <span class="exp-skill-badge">Bash</span>
+                            <span class="exp-skill-badge">Kubernetes</span>
+                        </div>
+                        <p class="exp-sub-overview">Architected and led the automation of CI/CD runner upgrades across
+                            200+ projects, eliminating manual intervention and enabling zero-downtime runtime
+                            migrations. Simultaneously led the organisation-wide Python 3.7 to 3.11 migration,
+                            coordinating across teams to ensure backward compatibility and uninterrupted deployments.
+                        </p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>Automation script development for runner upgrades at scale</li>
+                            <li>Zero-downtime migration planning and execution</li>
+                            <li>Python 3.7 to 3.11 migration lead</li>
+                            <li>Cross-team coordination and rollout management</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Improved deployment speed by <strong>80%</strong></li>
+                            <li>Delivered <strong>zero-downtime</strong> Python runtime migration</li>
+                            <li>Eliminated manual upgrade processes across <strong>200+ projects</strong></li>
+                        </ul>
+                    </div>
+
+                    <!-- TK Sub-panel 4: Hybrid Cloud & K8s -->
+                    <div id="tk-sub-panel-4" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">Terraform</span>
+                            <span class="exp-skill-badge">AWS EKS</span>
+                            <span class="exp-skill-badge">Azure AKS</span>
+                            <span class="exp-skill-badge">GitLab CI</span>
+                            <span class="exp-skill-badge">LitmusChaos</span>
+                            <span class="exp-skill-badge">Bash</span>
+                        </div>
+                        <p class="exp-sub-overview">Designed and deployed hybrid cloud infrastructure using Terraform,
+                            enabling repeatable multi-environment provisioning with GitOps-driven workflows and remote
+                            state management. Provisioned and managed Kubernetes clusters across
+                            EKS and AKS, implementing secure networking, RBAC, and resilience validation through chaos
+                            engineering.
+                        </p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>Hybrid cloud infrastructure design with Terraform</li>
+                            <li>EKS and AKS cluster provisioning and management</li>
+                            <li>RBAC policy design and container lifecycle management</li>
+                            <li>Chaos engineering implementation using LitmusChaos</li>
+                            <li>Remote state management and GitOps workflow enforcement</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Delivered consistent, repeatable infrastructure across AWS and Azure</li>
+                            <li>Validated platform resilience through chaos engineering</li>
+                            <li>Enforced RBAC and secure networking across all clusters</li>
+                            <li>Standardised GitOps delivery for infrastructure changes</li>
+                        </ul>
+                    </div>
+
+                    <!-- TK Sub-panel 5: Git Compliance -->
+                    <div id="tk-sub-panel-5" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">GitLab CI</span>
+                            <span class="exp-skill-badge">Python</span>
+                            <span class="exp-skill-badge">Bash</span>
+                            <span class="exp-skill-badge">Container Scanning</span>
+                            <span class="exp-skill-badge">SonarQube</span>
+                            <span class="exp-skill-badge">Security Hub</span>
+                        </div>
+                        <p class="exp-sub-overview">Led centralised Git compliance enforcement across 200+ repositories,
+                            embedding policy validation and security controls directly into delivery pipelines. Applied
+                            shift-left DevSecOps practices by integrating container scanning,
+                            compliance checks, and automated policy enforcement at the pipeline level.</p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>Organisation-wide GitLab policy configuration and enforcement</li>
+                            <li>Container scanning and compliance check integration</li>
+                            <li>Shift-left DevSecOps pipeline embedding</li>
+                            <li>Security risk identification and remediation</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Reduced security risks by <strong>35%</strong> across the organisation</li>
+                            <li>Enforced compliance across <strong>200+ repositories</strong></li>
+                            <li>Achieved automated policy validation on every pipeline run</li>
+                            <li>Eliminated manual compliance review overhead</li>
+                        </ul>
+                    </div>
+
+                    <!-- TK Sub-panel 6: Observability -->
+                    <div id="tk-sub-panel-6" class="exp-sub-panel" role="tabpanel">
+                        <div class="exp-skills">
+                            <span class="exp-skill-badge">Splunk</span>
+                            <span class="exp-skill-badge">CloudWatch</span>
+                            <span class="exp-skill-badge">Azure Monitor</span>
+                            <span class="exp-skill-badge">Python</span>
+                            <span class="exp-skill-badge">Airflow</span>
+                            <span class="exp-skill-badge">GitLab CI</span>
+                        </div>
+                        <p class="exp-sub-overview">Implemented centralised logging and observability across the
+                            platform using Splunk, CloudWatch, and Azure Monitor. Maintained and enhanced legacy Python
+                            data ingestion pipelines, resolving production issues and managing microservices
+                            deployment and versioning. Led Clean Room setup for ISO standardisation of the Data
+                            Engineering workspace.
+                        </p>
+                        <h5>Responsibilities</h5>
+                        <ul class="exp-achievements">
+                            <li>Centralised logging and monitoring implementation</li>
+                            <li>SLA/SLO/KPI tracking configuration</li>
+                            <li>Production bug resolution for Python data ingestion pipelines</li>
+                            <li>Microservices deployment and versioning tag management</li>
+                            <li>Clean Room environment setup for ISO compliance</li>
+                        </ul>
+                        <h5>Achievements</h5>
+                        <ul class="exp-achievements">
+                            <li>Enhanced operational visibility across hybrid cloud environments</li>
+                            <li>Improved incident response with centralised log aggregation</li>
+                            <li>Delivered ISO-compliant Clean Room for the Data Engineering team</li>
+                            <li>Stabilised legacy ingestion pipelines with zero production regression</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div id="exp-panel-3" class="exp-panel" role="tabpanel">
-                    <h3 class="exp-title">AWS Infrastructure Engineer / Linux Admin <span class="exp-company">@ Ambit
+                    <h3 class="exp-title">AWS Devops Engineer / Linux Admin <span class="exp-company">@ Ambit
                             R&amp;D Pvt. Ltd</span></h3>
                     <p class="exp-dates">Feb 2019 - Jul 2022 &middot; Thimi, Bhaktapur</p>
                     <p class="exp-summary">Managed AWS infrastructure and Linux server operations, progressing from
@@ -1378,12 +1708,14 @@
             var index = tabMap[hash];
             if (index !== undefined) {
                 var section = document.getElementById('experience');
-                if (section) section.scrollIntoView({ behavior: 'smooth' });
+                if (section) section.scrollIntoView({
+                    behavior: 'smooth'
+                });
                 var tabBtn = document.querySelector('.exp-tab[data-index="' + index + '"]');
                 if (tabBtn) tabBtn.click();
             }
         });
     </script>
 </body>
-</html>
 
+</html>
