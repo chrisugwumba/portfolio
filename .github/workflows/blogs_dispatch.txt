@@ -27,6 +27,6 @@ jobs:
       - name: Trigger main deploy workflow
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           repository: ${{ github.repository }}
           event-type: deploy

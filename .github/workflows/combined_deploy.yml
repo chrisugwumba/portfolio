@@ -45,10 +45,10 @@ jobs:
         run: |
           # mkdir -p ${{ github.workspace }}/temp_main_blog
           # cd prod_site/blogs
-          # hugo --baseURL="https://kaustuvbot.github.io/blog/" --destination="${{ github.workspace }}/temp_main_blog"
+          # hugo --baseURL="https://chrisugwumba.github.io/blog/" --destination="${{ github.workspace }}/temp_main_blog"
           cd prod_site/blogs
           # We pass the subfolder in the baseURL flag
-          hugo --baseURL="https://kaustuvprajapati.com.np/blog/"
+          hugo --baseURL="https://cangelo.org/blog/"
 
           # IMPORTANT: Your publishDir is ../docs/blog
           # This means the files are at prod_site/docs/blog
@@ -60,7 +60,7 @@ jobs:
 
           if [ -d "staging_site/blogs" ]; then
             cd staging_site/blogs
-            hugo --baseURL="https://kaustuvprajapati.com.np/draft/blog/" --buildDrafts --buildFuture
+            hugo --baseURL="https://cangelo.org/draft/blog/" --buildDrafts --buildFuture
             
             # Files will be at staging_site/docs/blog
             mkdir -p ${{ github.workspace }}/temp_draft_blog

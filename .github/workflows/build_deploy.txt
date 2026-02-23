@@ -47,7 +47,7 @@ jobs:
       # ---- Setup domain / nojekyll ----
       - name: Setup CNAME + .nojekyll
         run: |
-          echo "kaustuvprajapati.com.np" > public/CNAME
+          echo "cangelo.org" > public/CNAME
           touch public/.nojekyll
 
       # ---- Upload artifact for Pages ----
