@@ -174,7 +174,10 @@ console.log('%chttps://github.com/kaustuvp', 'font-size: 14px; color: #d4a574;')
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const text = "Chrisangelo U Amaechi";
+    const typedNameEl = document.getElementById("typedName");
+    if (typedNameEl) {
+        typedNameEl.textContent = "Chrisangelo U Amaechi"; // overwrite anything old
+    }
     const speed = 90; // typing speed (lower = faster)
     const target = document.getElementById("typedName");
 
