@@ -1,0 +1,116 @@
+/* =========================================
+   MOBILE + RESPONSIVE ORBIT FIXES
+   Safe override file
+   ========================================= */
+
+
+/* -------------------------------
+   1. Responsive Radius Variables
+--------------------------------*/
+
+:root {
+    --inner-radius: 200px;
+    --outer-radius: 250px;
+}
+
+/* Mobile radius scaling */
+@media (max-width: 768px) {
+    :root {
+        --inner-radius: 110px;
+        --outer-radius: 150px;
+    }
+}
+
+
+/* -------------------------------
+   2. Force Orbit Animations
+   (Overrides hardcoded px values)
+--------------------------------*/
+
+@keyframes orbitInner1 {
+    from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
+}
+
+@keyframes orbitInner2 {
+    from { transform: rotate(120deg) translateX(var(--inner-radius)) rotate(-120deg); }
+    to   { transform: rotate(480deg) translateX(var(--inner-radius)) rotate(-480deg); }
+}
+
+@keyframes orbitInner3 {
+    from { transform: rotate(240deg) translateX(var(--inner-radius)) rotate(-240deg); }
+    to   { transform: rotate(600deg) translateX(var(--inner-radius)) rotate(-600deg); }
+}
+
+@keyframes orbitOuter1 {
+    from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
+}
+
+@keyframes orbitOuter2 {
+    from { transform: rotate(120deg) translateX(var(--outer-radius)) rotate(-120deg); }
+    to   { transform: rotate(480deg) translateX(var(--outer-radius)) rotate(-480deg); }
+}
+
+@keyframes orbitOuter3 {
+    from { transform: rotate(240deg) translateX(var(--outer-radius)) rotate(-240deg); }
+    to   { transform: rotate(600deg) translateX(var(--outer-radius)) rotate(-600deg); }
+}
+
+
+/* -------------------------------
+   3. Ring & Icon Scaling
+--------------------------------*/
+
+@media (max-width: 768px) {
+
+    .orbit-inner-ring {
+        width: 220px !important;
+        height: 220px !important;
+    }
+
+    .orbit-outer-ring {
+        width: 300px !important;
+        height: 300px !important;
+    }
+
+    .orbiting-icon {
+        width: 34px !important;
+        height: 34px !important;
+        margin: -17px !important;
+    }
+
+    .orbiting-icon img {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    /* Reduce background clutter on mobile */
+    .floating-shape,
+    .floating-dot,
+    .floating-medium,
+    .star {
+        display: none !important;
+    }
+
+    /* Improve spacing */
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem !important;
+        padding: 0 1rem;
+    }
+}
+
+
+/* -------------------------------
+   4. Accessibility: Reduce Motion
+--------------------------------*/
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+    }
+}
