@@ -10,11 +10,11 @@ html, body {
 }
 
 /* -------------------------------
-   1. Flexible orbit radius variables
+   1. Orbit radius variables
 --------------------------------*/
 :root {
-    --inner-radius: 50vw;  /* 50% of viewport width */
-    --outer-radius: 60vw;  /* 60% of viewport width */
+    --inner-radius: 50vw;  /* inner orbit scales with viewport */
+    --outer-radius: 60vw;  /* outer orbit scales with viewport */
 }
 
 /* Cap maximum radius for desktop */
@@ -59,20 +59,8 @@ html, body {
 }
 
 /* -------------------------------
-   3. Orbit icon sizing (proportional)
+   3. Orbit rings & icons proportional
 --------------------------------*/
-.orbiting-icon {
-    width: calc(var(--outer-radius) * 0.12);
-    height: calc(var(--outer-radius) * 0.12);
-    margin: calc(-1 * var(--outer-radius) * 0.06); /* center in orbit */
-}
-
-.orbiting-icon img {
-    width: 50%;
-    height: 50%;
-}
-
-/* Orbit rings scale with variables */
 .orbit-inner-ring {
     width: calc(var(--inner-radius) * 2);
     height: calc(var(--inner-radius) * 2);
@@ -83,13 +71,25 @@ html, body {
     height: calc(var(--outer-radius) * 2);
 }
 
+.orbiting-icon {
+    width: calc(var(--outer-radius) * 0.12);
+    height: calc(var(--outer-radius) * 0.12);
+    margin: calc(-1 * var(--outer-radius) * 0.06);
+}
+
+.orbiting-icon img {
+    width: 50%;
+    height: 50%;
+}
+
 /* -------------------------------
-   4. Profile image responsive
+   4. Profile image responsive & circular
 --------------------------------*/
 .image-container img {
-    width: 35vw;       /* 35% of viewport width */
-    max-width: 180px;  /* cap for desktop */
-    height: auto;
+    width: calc(var(--inner-radius) * 0.9);   /* slightly smaller than inner orbit */
+    height: calc(var(--inner-radius) * 0.9);
+    border-radius: 50%;       /* keeps it perfectly round */
+    object-fit: cover;        /* prevents vertical/oval distortion */
     display: block;
     margin: 0 auto;
 }
@@ -99,7 +99,7 @@ html, body {
     z-index: 1;
 }
 
-/* Ensure orbit sits above image */
+/* Orbit container above image */
 .orbit-container {
     z-index: 2;
 }
