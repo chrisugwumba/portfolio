@@ -114,3 +114,86 @@
         animation: none !important;
     }
 }
+
+/* =========================================
+   PROFILE IMAGE MOBILE FIX
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    /* Reduce image size */
+    .image-container img {
+        width: 180px !important;
+        height: 180px !important;
+        object-fit: cover;
+    }
+
+    /* If image is inside a wrapper */
+    .image-container {
+        transform: scale(0.85);
+    }
+
+    /* Ensure orbit sits above image */
+    .orbit-container {
+        z-index: 2;
+    }
+
+    .image-container {
+        z-index: 1;
+    }
+}
+
+/* =========================================
+   SMALL PHONE FIXES (360px – 480px)
+   ========================================= */
+@media (max-width: 480px) {
+
+    /* Section Titles */
+    .section-title {
+        font-size: 1.4rem !important;
+    }
+
+    .section-subtitle {
+        font-size: 0.85rem !important;
+        padding: 0 0.5rem;
+    }
+
+    /* Orbit Rings */
+    .orbit-inner-ring {
+        width: 160px !important;
+        height: 160px !important;
+    }
+
+    .orbit-outer-ring {
+        width: 200px !important;
+        height: 200px !important;
+    }
+
+    /* Orbit Icons */
+    .orbiting-icon {
+        width: 28px !important;
+        height: 28px !important;
+        margin: -14px !important;
+    }
+
+    .orbiting-icon img {
+        width: 14px !important;
+        height: 14px !important;
+    }
+
+    /* Inner / Outer radius variables */
+    :root {
+        --inner-radius: 80px;
+        --outer-radius: 100px;
+    }
+
+    /* Profile Image */
+    .image-container img {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .image-container {
+        transform: scale(0.75);
+    }
+}
