@@ -163,7 +163,10 @@ html, body {
 /* ============================= */
 
 @media (prefers-reduced-motion: reduce) {
-    * {
+    .floating-shape,
+    .floating-dot,
+    .floating-medium,
+    .star {
         animation: none !important;
     }
 }
