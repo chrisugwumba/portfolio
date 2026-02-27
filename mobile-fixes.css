@@ -11,15 +11,22 @@ html, body {
    Orbit radius variables
 --------------------------------*/
 :root {
-    --inner-radius: 40vw;  /* inner orbit proportional to viewport */
-    --outer-radius: 50vw;  /* outer orbit proportional to viewport */
+    --inner-radius: 200px; /* default desktop inner orbit radius */
+    --outer-radius: 250px; /* default desktop outer orbit radius */
 }
 
-/* Cap maximum radius for desktop */
-@media (min-width: 1024px) {
+/* Mobile scaling */
+@media (max-width: 768px) {
     :root {
-        --inner-radius: 200px;
-        --outer-radius: 250px;
+        --inner-radius: 130px;
+        --outer-radius: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --inner-radius: 80px;
+        --outer-radius: 100px;
     }
 }
 
@@ -30,12 +37,10 @@ html, body {
     from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
     to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
 }
-
 @keyframes orbitInner2 {
     from { transform: rotate(120deg) translateX(var(--inner-radius)) rotate(-120deg); }
     to   { transform: rotate(480deg) translateX(var(--inner-radius)) rotate(-480deg); }
 }
-
 @keyframes orbitInner3 {
     from { transform: rotate(240deg) translateX(var(--inner-radius)) rotate(-240deg); }
     to   { transform: rotate(600deg) translateX(var(--inner-radius)) rotate(-600deg); }
@@ -45,12 +50,10 @@ html, body {
     from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
     to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
 }
-
 @keyframes orbitOuter2 {
     from { transform: rotate(120deg) translateX(var(--outer-radius)) rotate(-120deg); }
     to   { transform: rotate(480deg) translateX(var(--outer-radius)) rotate(-480deg); }
 }
-
 @keyframes orbitOuter3 {
     from { transform: rotate(240deg) translateX(var(--outer-radius)) rotate(-240deg); }
     to   { transform: rotate(600deg) translateX(var(--outer-radius)) rotate(-600deg); }
@@ -86,7 +89,7 @@ html, body {
 .image-container img {
     width: 35vw;          /* scales with viewport */
     max-width: 180px;     /* desktop cap */
-    aspect-ratio: 1 / 1;  /* keeps it square */
+    aspect-ratio: 1 / 1;  /* forces square */
     border-radius: 50%;   /* perfectly circular */
     object-fit: cover;    /* prevents oval distortion */
     display: block;
