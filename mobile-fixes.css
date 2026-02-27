@@ -1,78 +1,48 @@
-/* =========================================
-   FULLY RESPONSIVE ORBIT + IMAGE FIXES
-   ========================================= */
-
-/* -------------------------------
-   0. Prevent horizontal scroll
---------------------------------*/
-html, body {
-    overflow-x: hidden;
+/* Profile image responsive & circular */
+.image-container {
+    position: relative;
+    width: clamp(120px, 35vw, 180px);  /* min 120px, max 180px */
+    aspect-ratio: 1 / 1;                /* ensures square shape */
+    margin: 0 auto;
+    z-index: 1;
 }
 
-/* -------------------------------
-   1. Flexible orbit radius variables
---------------------------------*/
+.image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;   /* perfectly round */
+    object-fit: cover;    /* prevents oval distortion */
+    display: block;
+}
+
+/* ============================= */
+/* Responsive Orbit Variables    */
+/* ============================= */
+
 :root {
-    --inner-radius: 50vw;  /* 50% of viewport width */
-    --outer-radius: 60vw;  /* 60% of viewport width */
+    --image-size: clamp(120px, 35vw, 180px);
+
+    /* Responsive spacing instead of fixed px */
+    --orbit-gap-inner: clamp(20px, 6vw, 40px);
+    --orbit-gap-outer: clamp(35px, 8vw, 60px);
+
+    --inner-radius: calc(var(--image-size) / 2 + var(--orbit-gap-inner));
+    --outer-radius: calc(var(--image-size) / 2 + var(--orbit-gap-outer));
 }
 
-/* Cap maximum radius for desktop */
-@media (min-width: 1024px) {
-    :root {
-        --inner-radius: 200px;
-        --outer-radius: 250px;
-    }
+/* Orbit container must sit above image */
+.orbit-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    pointer-events: none;
 }
 
-/* -------------------------------
-   2. Orbit animations using variables
---------------------------------*/
-@keyframes orbitInner1 {
-    from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
-}
-
-@keyframes orbitInner2 {
-    from { transform: rotate(120deg) translateX(var(--inner-radius)) rotate(-120deg); }
-    to   { transform: rotate(480deg) translateX(var(--inner-radius)) rotate(-480deg); }
-}
-
-@keyframes orbitInner3 {
-    from { transform: rotate(240deg) translateX(var(--inner-radius)) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(var(--inner-radius)) rotate(-600deg); }
-}
-
-@keyframes orbitOuter1 {
-    from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
-}
-
-@keyframes orbitOuter2 {
-    from { transform: rotate(120deg) translateX(var(--outer-radius)) rotate(-120deg); }
-    to   { transform: rotate(480deg) translateX(var(--outer-radius)) rotate(-480deg); }
-}
-
-@keyframes orbitOuter3 {
-    from { transform: rotate(240deg) translateX(var(--outer-radius)) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(var(--outer-radius)) rotate(-600deg); }
-}
-
-/* -------------------------------
-   3. Orbit icon sizing (proportional)
---------------------------------*/
-.orbiting-icon {
-    width: calc(var(--outer-radius) * 0.12);
-    height: calc(var(--outer-radius) * 0.12);
-    margin: calc(-1 * var(--outer-radius) * 0.06); /* center in orbit */
-}
-
-.orbiting-icon img {
-    width: 50%;
-    height: 50%;
-}
-
-/* Orbit rings scale with variables */
+/* Orbit rings proportional */
 .orbit-inner-ring {
     width: calc(var(--inner-radius) * 2);
     height: calc(var(--inner-radius) * 2);
@@ -83,30 +53,43 @@ html, body {
     height: calc(var(--outer-radius) * 2);
 }
 
-/* -------------------------------
-   4. Profile image responsive
---------------------------------*/
-.image-container img {
-    width: 35vw;       /* 35% of viewport width */
-    max-width: 180px;  /* cap for desktop */
-    height: auto;
-    display: block;
-    margin: 0 auto;
+/* ============================= */
+/* Improved Icon Scaling         */
+/* ============================= */
+
+.orbiting-icon {
+    width: clamp(28px, calc(var(--outer-radius) * 0.18), 50px);
+    height: clamp(28px, calc(var(--outer-radius) * 0.18), 50px);
+    margin: calc(-0.5 * clamp(28px, calc(var(--outer-radius) * 0.18), 50px));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.image-container {
-    position: relative;
-    z-index: 1;
+.orbiting-icon img {
+    width: 50%;
+    height: 50%;
 }
 
-/* Ensure orbit sits above image */
-.orbit-container {
-    z-index: 2;
+/* ============================= */
+/* Orbit Animations              */
+/* ============================= */
+
+@keyframes orbitInner1 {
+    from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
 }
 
-/* -------------------------------
-   5. Section text scaling
---------------------------------*/
+@keyframes orbitOuter1 {
+    from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
+}
+
+/* ============================= */
+/* Section Text Scaling          */
+/* ============================= */
+
 .section-title {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
 }
@@ -117,9 +100,10 @@ html, body {
     text-align: center;
 }
 
-/* -------------------------------
-   6. Hide floating elements on small screens
---------------------------------*/
+/* ============================= */
+/* Hide floating elements on tablets & below */
+/* ============================= */
+
 @media (max-width: 768px) {
     .floating-shape,
     .floating-dot,
@@ -129,9 +113,27 @@ html, body {
     }
 }
 
-/* -------------------------------
-   7. Accessibility: Reduce motion
---------------------------------*/
+/* ============================= */
+/* Extra Mobile Optimization     */
+/* ============================= */
+
+@media (max-width: 480px) {
+    :root {
+        --orbit-gap-inner: 25px;
+        --orbit-gap-outer: 40px;
+    }
+
+    .orbiting-icon {
+        width: 32px;
+        height: 32px;
+        margin: -16px;
+    }
+}
+
+/* ============================= */
+/* Accessibility: Reduce motion  */
+/* ============================= */
+
 @media (prefers-reduced-motion: reduce) {
     * {
         animation: none !important;
