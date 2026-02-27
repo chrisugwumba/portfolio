@@ -1,20 +1,8 @@
-/* =========================================
-   RESPONSIVE ORBIT + IMAGE FIXES
-========================================= */
-
-/* Prevent horizontal scroll */
-html, body {
-    overflow-x: hidden;
-}
-
-/* -------------------------------
-   Profile image responsive & circular
---------------------------------*/
+/* Profile image responsive & circular */
 .image-container {
     position: relative;
-    width: 35vw;       /* scales with viewport */
-    max-width: 180px;  /* desktop cap */
-    aspect-ratio: 1 / 1; /* keeps square */
+    width: clamp(120px, 35vw, 180px);  /* min 120px, max 180px */
+    aspect-ratio: 1 / 1;                /* ensures square shape */
     margin: 0 auto;
     z-index: 1;
 }
@@ -27,43 +15,26 @@ html, body {
     display: block;
 }
 
-/* -------------------------------
-   Orbit radius based on image size
---------------------------------*/
+/* Orbit radius based on image size */
 :root {
-    --image-size: 35vw;
+    --image-size: clamp(120px, 35vw, 180px);
     --inner-radius: calc(var(--image-size) / 2 + 40px);
     --outer-radius: calc(var(--image-size) / 2 + 60px);
 }
 
-/* -------------------------------
-   Orbit container above image
---------------------------------*/
+/* Orbit container must sit above image */
 .orbit-container {
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 0;
+    height: 0;
     transform: translate(-50%, -50%);
     z-index: 2;
     pointer-events: none;
 }
 
-/* -------------------------------
-   Orbit keyframes using variables
---------------------------------*/
-@keyframes orbitInner1 {
-    from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
-}
-
-@keyframes orbitOuter1 {
-    from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
-}
-
-/* -------------------------------
-   Orbit rings & icons proportional
---------------------------------*/
+/* Orbit rings & icons proportional */
 .orbit-inner-ring {
     width: calc(var(--inner-radius) * 2);
     height: calc(var(--inner-radius) * 2);
@@ -89,9 +60,18 @@ html, body {
     height: 50%;
 }
 
-/* -------------------------------
-   Section text scaling
---------------------------------*/
+/* Orbit animations using variables */
+@keyframes orbitInner1 {
+    from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
+}
+
+@keyframes orbitOuter1 {
+    from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
+}
+
+/* Section text scaling */
 .section-title {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
 }
@@ -102,9 +82,7 @@ html, body {
     text-align: center;
 }
 
-/* -------------------------------
-   Hide floating elements on small screens
---------------------------------*/
+/* Hide floating elements on small screens */
 @media (max-width: 768px) {
     .floating-shape,
     .floating-dot,
@@ -114,9 +92,7 @@ html, body {
     }
 }
 
-/* -------------------------------
-   Accessibility: Reduce motion
---------------------------------*/
+/* Accessibility: Reduce motion */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation: none !important;
