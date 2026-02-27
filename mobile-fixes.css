@@ -8,26 +8,44 @@ html, body {
 }
 
 /* -------------------------------
-   Orbit radius variables
+   Profile image responsive & circular
+--------------------------------*/
+.image-container {
+    position: relative;
+    width: 35vw;       /* scales with viewport */
+    max-width: 180px;  /* desktop cap */
+    aspect-ratio: 1 / 1; /* keeps square */
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;   /* perfectly round */
+    object-fit: cover;    /* prevents oval distortion */
+    display: block;
+}
+
+/* -------------------------------
+   Orbit radius based on image size
 --------------------------------*/
 :root {
-    --inner-radius: 200px; /* default desktop inner orbit radius */
-    --outer-radius: 250px; /* default desktop outer orbit radius */
+    --image-size: 35vw;
+    --inner-radius: calc(var(--image-size) / 2 + 40px);
+    --outer-radius: calc(var(--image-size) / 2 + 60px);
 }
 
-/* Mobile scaling */
-@media (max-width: 768px) {
-    :root {
-        --inner-radius: 130px;
-        --outer-radius: 160px;
-    }
-}
-
-@media (max-width: 480px) {
-    :root {
-        --inner-radius: 80px;
-        --outer-radius: 100px;
-    }
+/* -------------------------------
+   Orbit container above image
+--------------------------------*/
+.orbit-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    pointer-events: none;
 }
 
 /* -------------------------------
@@ -37,26 +55,10 @@ html, body {
     from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
     to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
 }
-@keyframes orbitInner2 {
-    from { transform: rotate(120deg) translateX(var(--inner-radius)) rotate(-120deg); }
-    to   { transform: rotate(480deg) translateX(var(--inner-radius)) rotate(-480deg); }
-}
-@keyframes orbitInner3 {
-    from { transform: rotate(240deg) translateX(var(--inner-radius)) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(var(--inner-radius)) rotate(-600deg); }
-}
 
 @keyframes orbitOuter1 {
     from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
     to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
-}
-@keyframes orbitOuter2 {
-    from { transform: rotate(120deg) translateX(var(--outer-radius)) rotate(-120deg); }
-    to   { transform: rotate(480deg) translateX(var(--outer-radius)) rotate(-480deg); }
-}
-@keyframes orbitOuter3 {
-    from { transform: rotate(240deg) translateX(var(--outer-radius)) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(var(--outer-radius)) rotate(-600deg); }
 }
 
 /* -------------------------------
@@ -76,37 +78,15 @@ html, body {
     width: calc(var(--outer-radius) * 0.12);
     height: calc(var(--outer-radius) * 0.12);
     margin: calc(-1 * var(--outer-radius) * 0.06);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .orbiting-icon img {
     width: 50%;
     height: 50%;
-}
-
-/* -------------------------------
-   Profile image responsive & circular
---------------------------------*/
-.image-container img {
-    width: 35vw;          /* scales with viewport */
-    max-width: 180px;     /* desktop cap */
-    aspect-ratio: 1 / 1;  /* forces square */
-    border-radius: 50%;   /* perfectly circular */
-    object-fit: cover;    /* prevents oval distortion */
-    display: block;
-    margin: 0 auto;
-}
-
-.image-container {
-    position: relative;
-    z-index: 1;
-}
-
-/* Orbit above image */
-.orbit-container {
-    z-index: 2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
 }
 
 /* -------------------------------
