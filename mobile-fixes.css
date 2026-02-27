@@ -1,95 +1,56 @@
 /* =========================================
-   FULLY RESPONSIVE ORBIT + IMAGE FIXES
+   RESPONSIVE ORBIT + IMAGE + ICON FIXES
    ========================================= */
 
-/* -------------------------------
-   0. Prevent horizontal scroll
---------------------------------*/
+/* Prevent horizontal scroll */
 html, body {
     overflow-x: hidden;
 }
 
 /* -------------------------------
-   1. Orbit radius variables
+   Orbit container scaling
 --------------------------------*/
-:root {
-    --inner-radius: 50vw;  /* inner orbit scales with viewport */
-    --outer-radius: 60vw;  /* outer orbit scales with viewport */
+@media (max-width: 1023px) {
+    .orbit-container {
+        transform: translate(-50%, -50%) scale(0.5); /* scales orbit + icons + radius */
+    }
 }
 
-/* Cap maximum radius for desktop */
-@media (min-width: 1024px) {
-    :root {
-        --inner-radius: 200px;
-        --outer-radius: 250px;
+@media (max-width: 768px) {
+    .orbit-container {
+        transform: translate(-50%, -50%) scale(0.35);
+    }
+}
+
+@media (max-width: 480px) {
+    .orbit-container {
+        transform: translate(-50%, -50%) scale(0.25);
     }
 }
 
 /* -------------------------------
-   2. Orbit animations using variables
+   Orbit icons proportional
 --------------------------------*/
-@keyframes orbitInner1 {
-    from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
-}
-
-@keyframes orbitInner2 {
-    from { transform: rotate(120deg) translateX(var(--inner-radius)) rotate(-120deg); }
-    to   { transform: rotate(480deg) translateX(var(--inner-radius)) rotate(-480deg); }
-}
-
-@keyframes orbitInner3 {
-    from { transform: rotate(240deg) translateX(var(--inner-radius)) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(var(--inner-radius)) rotate(-600deg); }
-}
-
-@keyframes orbitOuter1 {
-    from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
-}
-
-@keyframes orbitOuter2 {
-    from { transform: rotate(120deg) translateX(var(--outer-radius)) rotate(-120deg); }
-    to   { transform: rotate(480deg) translateX(var(--outer-radius)) rotate(-480deg); }
-}
-
-@keyframes orbitOuter3 {
-    from { transform: rotate(240deg) translateX(var(--outer-radius)) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(var(--outer-radius)) rotate(-600deg); }
-}
-
-/* -------------------------------
-   3. Orbit rings & icons proportional
---------------------------------*/
-.orbit-inner-ring {
-    width: calc(var(--inner-radius) * 2);
-    height: calc(var(--inner-radius) * 2);
-}
-
-.orbit-outer-ring {
-    width: calc(var(--outer-radius) * 2);
-    height: calc(var(--outer-radius) * 2);
-}
-
 .orbiting-icon {
-    width: calc(var(--outer-radius) * 0.12);
-    height: calc(var(--outer-radius) * 0.12);
-    margin: calc(-1 * var(--outer-radius) * 0.06);
+    width: 46px;
+    height: 46px;
+    margin: -23px;
 }
 
 .orbiting-icon img {
-    width: 50%;
-    height: 50%;
+    width: 22px;
+    height: 22px;
 }
 
 /* -------------------------------
-   4. Profile image responsive & circular
+   Profile image responsive & circular
 --------------------------------*/
 .image-container img {
-    width: calc(var(--inner-radius) * 0.9);   /* slightly smaller than inner orbit */
-    height: calc(var(--inner-radius) * 0.9);
-    border-radius: 50%;       /* keeps it perfectly round */
-    object-fit: cover;        /* prevents vertical/oval distortion */
+    width: 35vw;        /* scales with viewport */
+    max-width: 180px;   /* desktop cap */
+    height: auto;
+    border-radius: 50%;  /* always circular */
+    object-fit: cover;   /* prevent oval distortion */
     display: block;
     margin: 0 auto;
 }
@@ -99,13 +60,16 @@ html, body {
     z-index: 1;
 }
 
-/* Orbit container above image */
+/* Orbit above image */
 .orbit-container {
     z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
 
 /* -------------------------------
-   5. Section text scaling
+   Section text scaling
 --------------------------------*/
 .section-title {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
@@ -118,7 +82,7 @@ html, body {
 }
 
 /* -------------------------------
-   6. Hide floating elements on small screens
+   Hide floating elements on small screens
 --------------------------------*/
 @media (max-width: 768px) {
     .floating-shape,
@@ -130,7 +94,7 @@ html, body {
 }
 
 /* -------------------------------
-   7. Accessibility: Reduce motion
+   Accessibility: Reduce motion
 --------------------------------*/
 @media (prefers-reduced-motion: reduce) {
     * {
