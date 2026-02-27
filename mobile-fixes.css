@@ -1,8 +1,14 @@
+/* Prevent horizontal scroll globally */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 /* Profile image responsive & circular */
 .image-container {
     position: relative;
-    width: clamp(120px, 35vw, 180px);  /* min 120px, max 180px */
-    aspect-ratio: 1 / 1;                /* ensures square shape */
+    width: clamp(120px, 35vw, 180px);
+    aspect-ratio: 1 / 1;
     margin: 0 auto;
     z-index: 1;
 }
@@ -10,8 +16,8 @@
 .image-container img {
     width: 100%;
     height: 100%;
-    border-radius: 50%;   /* perfectly round */
-    object-fit: cover;    /* prevents oval distortion */
+    border-radius: 50%;
+    object-fit: cover;
     display: block;
 }
 
@@ -22,7 +28,6 @@
 :root {
     --image-size: clamp(120px, 35vw, 180px);
 
-    /* Responsive spacing instead of fixed px */
     --orbit-gap-inner: clamp(20px, 6vw, 40px);
     --orbit-gap-outer: clamp(35px, 8vw, 60px);
 
@@ -30,7 +35,7 @@
     --outer-radius: calc(var(--image-size) / 2 + var(--orbit-gap-outer));
 }
 
-/* Orbit container must sit above image */
+/* Orbit container */
 .orbit-container {
     position: absolute;
     top: 50%;
@@ -42,7 +47,10 @@
     pointer-events: none;
 }
 
-/* Orbit rings proportional */
+/* ============================= */
+/* Orbit rings proportional      */
+/* ============================= */
+
 .orbit-inner-ring {
     width: calc(var(--inner-radius) * 2);
     height: calc(var(--inner-radius) * 2);
@@ -101,23 +109,43 @@
 }
 
 /* ============================= */
-/* Hide floating elements on tablets & below */
+/* Tablet & Below Adjustments    */
 /* ============================= */
 
 @media (max-width: 768px) {
+
+    /* Hide heavy floating effects */
     .floating-shape,
     .floating-dot,
     .floating-medium,
     .star {
         display: none !important;
     }
+
+    /* Make orbit rings fit screen width */
+    .orbit-inner-ring {
+        width: 65vw;
+        height: 65vw;
+    }
+
+    .orbit-outer-ring {
+        width: 85vw;
+        height: 85vw;
+    }
+
+    /* Keep orbit container from causing overflow */
+    .orbit-container {
+        max-width: 100vw;
+        overflow: hidden;
+    }
 }
 
 /* ============================= */
-/* Extra Mobile Optimization     */
+/* Extra Small Devices           */
 /* ============================= */
 
 @media (max-width: 480px) {
+
     :root {
         --orbit-gap-inner: 25px;
         --orbit-gap-outer: 40px;
