@@ -1,6 +1,6 @@
 /* =========================================
-   RESPONSIVE ORBIT + IMAGE + ICON FIXES
-   ========================================= */
+   RESPONSIVE ORBIT + IMAGE FIXES
+========================================= */
 
 /* Prevent horizontal scroll */
 html, body {
@@ -8,49 +8,87 @@ html, body {
 }
 
 /* -------------------------------
-   Orbit container scaling
+   Orbit radius variables
 --------------------------------*/
-@media (max-width: 1023px) {
-    .orbit-container {
-        transform: translate(-50%, -50%) scale(0.5); /* scales orbit + icons + radius */
-    }
+:root {
+    --inner-radius: 40vw;  /* inner orbit proportional to viewport */
+    --outer-radius: 50vw;  /* outer orbit proportional to viewport */
 }
 
-@media (max-width: 768px) {
-    .orbit-container {
-        transform: translate(-50%, -50%) scale(0.35);
-    }
-}
-
-@media (max-width: 480px) {
-    .orbit-container {
-        transform: translate(-50%, -50%) scale(0.25);
+/* Cap maximum radius for desktop */
+@media (min-width: 1024px) {
+    :root {
+        --inner-radius: 200px;
+        --outer-radius: 250px;
     }
 }
 
 /* -------------------------------
-   Orbit icons proportional
+   Orbit keyframes using variables
 --------------------------------*/
+@keyframes orbitInner1 {
+    from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
+}
+
+@keyframes orbitInner2 {
+    from { transform: rotate(120deg) translateX(var(--inner-radius)) rotate(-120deg); }
+    to   { transform: rotate(480deg) translateX(var(--inner-radius)) rotate(-480deg); }
+}
+
+@keyframes orbitInner3 {
+    from { transform: rotate(240deg) translateX(var(--inner-radius)) rotate(-240deg); }
+    to   { transform: rotate(600deg) translateX(var(--inner-radius)) rotate(-600deg); }
+}
+
+@keyframes orbitOuter1 {
+    from { transform: rotate(0deg) translateX(var(--outer-radius)) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(var(--outer-radius)) rotate(-360deg); }
+}
+
+@keyframes orbitOuter2 {
+    from { transform: rotate(120deg) translateX(var(--outer-radius)) rotate(-120deg); }
+    to   { transform: rotate(480deg) translateX(var(--outer-radius)) rotate(-480deg); }
+}
+
+@keyframes orbitOuter3 {
+    from { transform: rotate(240deg) translateX(var(--outer-radius)) rotate(-240deg); }
+    to   { transform: rotate(600deg) translateX(var(--outer-radius)) rotate(-600deg); }
+}
+
+/* -------------------------------
+   Orbit rings & icons proportional
+--------------------------------*/
+.orbit-inner-ring {
+    width: calc(var(--inner-radius) * 2);
+    height: calc(var(--inner-radius) * 2);
+}
+
+.orbit-outer-ring {
+    width: calc(var(--outer-radius) * 2);
+    height: calc(var(--outer-radius) * 2);
+}
+
 .orbiting-icon {
-    width: 46px;
-    height: 46px;
-    margin: -23px;
+    width: calc(var(--outer-radius) * 0.12);
+    height: calc(var(--outer-radius) * 0.12);
+    margin: calc(-1 * var(--outer-radius) * 0.06);
 }
 
 .orbiting-icon img {
-    width: 22px;
-    height: 22px;
+    width: 50%;
+    height: 50%;
 }
 
 /* -------------------------------
    Profile image responsive & circular
 --------------------------------*/
 .image-container img {
-    width: 35vw;        /* scales with viewport */
-    max-width: 180px;   /* desktop cap */
-    height: auto;
-    border-radius: 50%;  /* always circular */
-    object-fit: cover;   /* prevent oval distortion */
+    width: 35vw;          /* scales with viewport */
+    max-width: 180px;     /* desktop cap */
+    aspect-ratio: 1 / 1;  /* keeps it square */
+    border-radius: 50%;   /* perfectly circular */
+    object-fit: cover;    /* prevents oval distortion */
     display: block;
     margin: 0 auto;
 }
