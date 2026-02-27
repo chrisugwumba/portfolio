@@ -21,6 +21,7 @@ html {
     scroll-behavior: smooth;
 }
 
+
 /* Custom Scrollbar */
 
 ::-webkit-scrollbar {
@@ -39,6 +40,7 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #c29560;
 }
+
 
 /* Typing Cursor */
 
@@ -60,6 +62,7 @@ html {
     }
 }
 
+
 /* Section Titles */
 
 .section-title {
@@ -79,6 +82,7 @@ html {
     margin-right: auto;
 }
 
+
 /* Card Hover Effects */
 
 .card-hover {
@@ -89,6 +93,7 @@ html {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
+
 
 /* Card Title with Gold Accent */
 
@@ -105,6 +110,7 @@ html {
     height: 2px;
     background: linear-gradient(90deg, #d4a574, transparent);
 }
+
 
 /* Fade In Animation */
 
@@ -123,6 +129,7 @@ html {
     }
 }
 
+
 /* Slide Up Animation */
 
 .slide-up {
@@ -139,6 +146,7 @@ html {
         transform: translateY(0);
     }
 }
+
 
 /* Floating Background Elements */
 
@@ -190,6 +198,7 @@ html {
         transform: translate(40px, -30px) rotate(3deg);
     }
 }
+
 
 /* Floating Dots */
 
@@ -261,6 +270,7 @@ html {
     }
 }
 
+
 /* Floating Medium Elements */
 
 .floating-medium {
@@ -307,6 +317,7 @@ html {
     }
 }
 
+
 /* Profile Image Container */
 
 .image-container {
@@ -314,181 +325,199 @@ html {
     overflow: visible;
     z-index: 1;
 }
-/* ===============================
-   ORBIT SYSTEM – DESKTOP (FIXED TO 320px PROFILE)
-=============================== */
 
-/* Orbit Container (match profile size) */
+
+/* ===============================
+   ORBIT SYSTEM WITH TRAIL
+   =============================== */
+
 .orbit-container {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 380px;   /* slightly larger than profile */
-    height: 380px;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    z-index: 5;
 }
 
-/* Orbit Rings */
+
+/* Trail Ring */
+
 .orbit-trail {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 165, 116, 0.15);
+}
+
+
+/* ===============================
+   ORBIT SYSTEM (Clean Version)
+   =============================== */
+
+.orbit-container {
     position: absolute;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.star {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: #d4a574;
     border-radius: 50%;
-    border: 2px solid rgba(212, 165, 116, 0.4); /* more visible */
+    box-shadow: 0 0 6px rgba(212, 165, 116, 0.8);
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+    animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+
+/* ===============================
+   ORBIT CONTAINER
+   =============================== */
+
+.orbit-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
     transform: translate(-50%, -50%);
 }
 
-/* Inner & Outer ring sizes */
-.orbit-inner-ring {
-    width: 300px;
-    height: 300px;
-}
 
-.orbit-outer-ring {
-    width: 360px;
-    height: 360px;
-}
+/* ===============================
+   ORBIT BASE
+=============================== */
 
-/* Orbiting Icons (balanced size) */
 .orbiting-icon {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 42px;
-    height: 42px;
-    margin: -21px;
+    width: 46px;
+    height: 46px;
+    margin: -23px;
     background: #0f1115;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 12px rgba(212, 165, 116, 0.25);
+    box-shadow: 0 0 18px rgba(212, 165, 116, 0.15);
+    animation: orbit 24s linear infinite;
 }
 
-/* Icon inside */
 .orbiting-icon img {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     filter: invert(75%) sepia(35%) saturate(300%) hue-rotate(5deg);
 }
 
+
 /* ===============================
-   ORBIT ANIMATIONS (adjusted radius)
+   ORBIT RINGS (GOLD)
 =============================== */
 
-/* Inner orbit radius = 150px */
+.orbit-trail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    transform: translate(-50%, -50%);
+}
+
+
+/* Inner Ring */
+
+.orbit-inner-ring {
+    width: 400px;
+    height: 400px;
+}
+
+
+/* Outer Ring */
+
+.orbit-outer-ring {
+    width: 500px;
+    height: 500px;
+}
+
+
+/* ===============================
+   INNER ORBIT (Clockwise)
+   Radius: 200px
+=============================== */
+
 @keyframes orbitInner1 {
-    from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+    from {
+        transform: rotate(0deg) translateX(200px) rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg) translateX(200px) rotate(-360deg);
+    }
 }
 
 @keyframes orbitInner2 {
-    from { transform: rotate(120deg) translateX(150px) rotate(-120deg); }
-    to   { transform: rotate(480deg) translateX(150px) rotate(-480deg); }
+    from {
+        transform: rotate(120deg) translateX(200px) rotate(-120deg);
+    }
+    to {
+        transform: rotate(480deg) translateX(200px) rotate(-480deg);
+    }
 }
 
 @keyframes orbitInner3 {
-    from { transform: rotate(240deg) translateX(150px) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(150px) rotate(-600deg); }
+    from {
+        transform: rotate(240deg) translateX(200px) rotate(-240deg);
+    }
+    to {
+        transform: rotate(600deg) translateX(200px) rotate(-600deg);
+    }
 }
 
-/* Outer orbit radius = 180px */
+
+/* ===============================
+   OUTER ORBIT (Clockwise)
+   Radius: 250px
+=============================== */
+
 @keyframes orbitOuter1 {
-    from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
-    to   { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
+    from {
+        transform: rotate(0deg) translateX(250px) rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg) translateX(250px) rotate(-360deg);
+    }
+}
+
+@keyframes orbitOuter2 {
+    from {
+        transform: rotate(120deg) translateX(250px) rotate(-120deg);
+    }
+    to {
+        transform: rotate(480deg) translateX(250px) rotate(-480deg);
+    }
 }
 
 @keyframes orbitOuter3 {
-    from { transform: rotate(240deg) translateX(180px) rotate(-240deg); }
-    to   { transform: rotate(600deg) translateX(180px) rotate(-600deg); }
-}
-
-/* Assign animations to icons */
-.orbiting-icon.inner1 { animation: orbitInner1 26s linear infinite; }
-.orbiting-icon.inner2 { animation: orbitInner2 26s linear infinite; }
-.orbiting-icon.inner3 { animation: orbitInner3 26s linear infinite; }
-
-.orbiting-icon.outer1 { animation: orbitOuter1 34s linear infinite; }
-.orbiting-icon.outer2 { animation: orbitOuter2 34s linear infinite; }
-.orbiting-icon.outer3 { animation: orbitOuter3 34s linear infinite; }
-
-/* ===============================
-   MOBILE RESPONSIVE FIX
-   (kept as-is from original file)
-=============================== */
-@media (max-width: 768px) {
-
-    /* Section Titles */
-    .section-title {
-        font-size: 1.8rem;
+    from {
+        transform: rotate(240deg) translateX(250px) rotate(-240deg);
     }
-
-    .section-subtitle {
-        font-size: 0.9rem;
-        padding: 0 1rem;
-    }
-
-    /* Orbit Rings Resize */
-    .orbit-inner-ring {
-        width: 260px;
-        height: 260px;
-    }
-
-    .orbit-outer-ring {
-        width: 320px;
-        height: 320px;
-    }
-
-    /* Orbit Icons Smaller */
-    .orbiting-icon {
-        width: 36px;
-        height: 36px;
-        margin: -18px;
-    }
-
-    .orbiting-icon img {
-        width: 18px;
-        height: 18px;
-    }
-
-    /* Adjust Inner Orbit Radius */
-    @keyframes orbitInner1 {
-        from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
-        to   { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
-    }
-
-    @keyframes orbitInner2 {
-        from { transform: rotate(120deg) translateX(130px) rotate(-120deg); }
-        to   { transform: rotate(480deg) translateX(130px) rotate(-480deg); }
-    }
-
-    @keyframes orbitInner3 {
-        from { transform: rotate(240deg) translateX(130px) rotate(-240deg); }
-        to   { transform: rotate(600deg) translateX(130px) rotate(-600deg); }
-    }
-
-    /* Adjust Outer Orbit Radius */
-    @keyframes orbitOuter1 {
-        from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
-        to   { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
-    }
-
-    @keyframes orbitOuter2 {
-        from { transform: rotate(120deg) translateX(160px) rotate(-120deg); }
-        to   { transform: rotate(480deg) translateX(160px) rotate(-480deg); }
-    }
-
-    @keyframes orbitOuter3 {
-        from { transform: rotate(240deg) translateX(160px) rotate(-240deg); }
-        to   { transform: rotate(600deg) translateX(160px) rotate(-600deg); }
-    }
-
-    /* Reduce Floating Background Noise */
-    .floating-shape,
-    .floating-dot,
-    .floating-medium {
-        display: none;
+    to {
+        transform: rotate(600deg) translateX(250px) rotate(-600deg);
     }
 }
