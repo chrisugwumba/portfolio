@@ -1,32 +1,33 @@
 /* =========================================
-   MOBILE + RESPONSIVE ORBIT FIXES
-   Safe override file
+   FULLY RESPONSIVE ORBIT + IMAGE FIXES
    ========================================= */
 
-
 /* -------------------------------
-   1. Responsive Radius Variables
+   0. Prevent horizontal scroll
 --------------------------------*/
-
-:root {
-    --inner-radius: 200px;
-    --outer-radius: 250px;
+html, body {
+    overflow-x: hidden;
 }
 
-/* Mobile radius scaling */
-@media (max-width: 768px) {
+/* -------------------------------
+   1. Flexible orbit radius variables
+--------------------------------*/
+:root {
+    --inner-radius: 50vw;  /* 50% of viewport width */
+    --outer-radius: 60vw;  /* 60% of viewport width */
+}
+
+/* Cap maximum radius for desktop */
+@media (min-width: 1024px) {
     :root {
-        --inner-radius: 110px;
-        --outer-radius: 150px;
+        --inner-radius: 200px;
+        --outer-radius: 250px;
     }
 }
 
-
 /* -------------------------------
-   2. Force Orbit Animations
-   (Overrides hardcoded px values)
+   2. Orbit animations using variables
 --------------------------------*/
-
 @keyframes orbitInner1 {
     from { transform: rotate(0deg) translateX(var(--inner-radius)) rotate(0deg); }
     to   { transform: rotate(360deg) translateX(var(--inner-radius)) rotate(-360deg); }
@@ -57,143 +58,82 @@
     to   { transform: rotate(600deg) translateX(var(--outer-radius)) rotate(-600deg); }
 }
 
+/* -------------------------------
+   3. Orbit icon sizing (proportional)
+--------------------------------*/
+.orbiting-icon {
+    width: calc(var(--outer-radius) * 0.12);
+    height: calc(var(--outer-radius) * 0.12);
+    margin: calc(-1 * var(--outer-radius) * 0.06); /* center in orbit */
+}
+
+.orbiting-icon img {
+    width: 50%;
+    height: 50%;
+}
+
+/* Orbit rings scale with variables */
+.orbit-inner-ring {
+    width: calc(var(--inner-radius) * 2);
+    height: calc(var(--inner-radius) * 2);
+}
+
+.orbit-outer-ring {
+    width: calc(var(--outer-radius) * 2);
+    height: calc(var(--outer-radius) * 2);
+}
 
 /* -------------------------------
-   3. Ring & Icon Scaling
+   4. Profile image responsive
 --------------------------------*/
+.image-container img {
+    width: 35vw;       /* 35% of viewport width */
+    max-width: 180px;  /* cap for desktop */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
 
+.image-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure orbit sits above image */
+.orbit-container {
+    z-index: 2;
+}
+
+/* -------------------------------
+   5. Section text scaling
+--------------------------------*/
+.section-title {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+.section-subtitle {
+    font-size: clamp(0.85rem, 3vw, 1rem);
+    padding: 0 1rem;
+    text-align: center;
+}
+
+/* -------------------------------
+   6. Hide floating elements on small screens
+--------------------------------*/
 @media (max-width: 768px) {
-
-    .orbit-inner-ring {
-        width: 220px !important;
-        height: 220px !important;
-    }
-
-    .orbit-outer-ring {
-        width: 300px !important;
-        height: 300px !important;
-    }
-
-    .orbiting-icon {
-        width: 34px !important;
-        height: 34px !important;
-        margin: -17px !important;
-    }
-
-    .orbiting-icon img {
-        width: 18px !important;
-        height: 18px !important;
-    }
-
-    /* Reduce background clutter on mobile */
     .floating-shape,
     .floating-dot,
     .floating-medium,
     .star {
         display: none !important;
     }
-
-    /* Improve spacing */
-    .section-title {
-        font-size: 1.8rem !important;
-    }
-
-    .section-subtitle {
-        font-size: 0.95rem !important;
-        padding: 0 1rem;
-    }
 }
 
-
 /* -------------------------------
-   4. Accessibility: Reduce Motion
+   7. Accessibility: Reduce motion
 --------------------------------*/
-
 @media (prefers-reduced-motion: reduce) {
     * {
         animation: none !important;
-    }
-}
-
-/* =========================================
-   PROFILE IMAGE MOBILE FIX
-   ========================================= */
-
-@media (max-width: 768px) {
-
-    /* Reduce image size */
-    .image-container img {
-        width: 180px !important;
-        height: 180px !important;
-        object-fit: cover;
-    }
-
-    /* If image is inside a wrapper */
-    .image-container {
-        transform: scale(0.85);
-    }
-
-    /* Ensure orbit sits above image */
-    .orbit-container {
-        z-index: 2;
-    }
-
-    .image-container {
-        z-index: 1;
-    }
-}
-
-/* =========================================
-   SMALL PHONE FIXES (360px – 480px)
-   ========================================= */
-@media (max-width: 480px) {
-
-    /* Section Titles */
-    .section-title {
-        font-size: 1.4rem !important;
-    }
-
-    .section-subtitle {
-        font-size: 0.85rem !important;
-        padding: 0 0.5rem;
-    }
-
-    /* Orbit Rings */
-    .orbit-inner-ring {
-        width: 160px !important;
-        height: 160px !important;
-    }
-
-    .orbit-outer-ring {
-        width: 200px !important;
-        height: 200px !important;
-    }
-
-    /* Orbit Icons */
-    .orbiting-icon {
-        width: 28px !important;
-        height: 28px !important;
-        margin: -14px !important;
-    }
-
-    .orbiting-icon img {
-        width: 14px !important;
-        height: 14px !important;
-    }
-
-    /* Inner / Outer radius variables */
-    :root {
-        --inner-radius: 80px;
-        --outer-radius: 100px;
-    }
-
-    /* Profile Image */
-    .image-container img {
-        width: 120px !important;
-        height: 120px !important;
-    }
-
-    .image-container {
-        transform: scale(0.75);
     }
 }
