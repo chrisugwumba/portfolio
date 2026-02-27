@@ -1,269 +1,224 @@
-/* ==================== EXPERIENCE TAB SIDEBAR LAYOUT ==================== */
-
-.exp-container {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 0;
-    min-height: 340px;
-    max-width: 64rem;
-    margin: 0 auto;
+/* ==================== ROOT & SHARED VARIABLES ==================== */
+:root {
+    --color-border: #363940;
+    --color-surface: #23252a;
+    --color-accent: #d4a574;
+    --color-accent-soft: #e8d4bc;
+    --color-heading: #f5f6f8;
+    --color-primary-text: #e8e9ed;
+    --color-secondary-text: #a8adb8;
+    --sidebar-width: 240px;
 }
 
-/* Sidebar tabs */
+/* ==================== LAYOUT CONTAINER ==================== */
+.exp-container {
+    display: grid;
+    /* Uses minmax to allow sidebar to shrink slightly on smaller desktops */
+    grid-template-columns: minmax(200px, var(--sidebar-width)) 1fr;
+    gap: 0;
+    min-height: 400px;
+    max-width: 1000px;
+    margin: 2rem auto;
+    background: transparent;
+    border-radius: 8px;
+}
+
+/* ==================== SIDEBAR (DESKTOP) ==================== */
 .exp-tabs {
-    border-right: 2px solid var(--color-border, #363940);
     display: flex;
     flex-direction: column;
+    border-right: 2px solid var(--color-border);
+    position: relative;
 }
 
 .exp-tab {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 14px 20px;
+    padding: 18px 20px;
     text-align: left;
     border: none;
     background: transparent;
     border-right: 2px solid transparent;
-    margin-right: -2px;
+    margin-right: -2px; /* Overlaps container border for seamless active state */
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: 'Poppins', sans-serif;
+    transition: all 0.25s ease;
+    width: 100%;
 }
 
 .exp-tab:hover {
-    background: var(--color-surface, #23252a);
-    border-right-color: var(--color-accent-soft, #e8d4bc);
+    background: var(--color-surface);
+    color: var(--color-accent-soft);
 }
 
 .exp-tab.active {
-    background: var(--color-surface, #23252a);
-    border-right-color: var(--color-accent, #d4a574);
+    background: var(--color-surface);
+    border-right-color: var(--color-accent);
 }
 
 .exp-tab-company {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: var(--color-heading, #f5f6f8);
+    color: var(--color-heading);
+    line-height: 1.2;
+    margin-bottom: 4px;
 }
 
 .exp-tab.active .exp-tab-company {
-    color: var(--color-accent, #d4a574);
+    color: var(--color-accent);
 }
 
 .exp-tab-role {
     font-size: 0.75rem;
-    color: var(--color-secondary-text, #a8adb8);
-    margin-top: 2px;
+    color: var(--color-secondary-text);
+    white-space: normal; /* Prevents text from overlapping/bleeding out */
 }
 
-
-/* ==================== DETAIL PANEL ==================== */
-
+/* ==================== DETAIL PANELS ==================== */
 .exp-panel {
-    padding: 0 24px 24px 40px;
+    padding: 0 0 30px 40px;
     display: none;
+    animation: fadeIn 0.4s ease;
 }
 
 .exp-panel.active {
     display: block;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 .exp-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-heading, #f5f6f8);
-    margin-bottom: 6px;
+    color: var(--color-heading);
+    margin-bottom: 8px;
 }
 
 .exp-company {
-    color: var(--color-accent, #d4a574);
-    font-weight: 600;
+    color: var(--color-accent);
 }
 
 .exp-dates {
-    font-size: 0.8rem;
-    color: var(--color-secondary-text, #a8adb8);
-    font-family: 'Poppins', monospace;
-    margin-bottom: 16px;
+    font-size: 0.85rem;
+    color: var(--color-secondary-text);
+    margin-bottom: 20px;
 }
 
 .exp-summary {
-    color: var(--color-secondary-text, #a8adb8);
-    margin-bottom: 16px;
-    font-size: 0.925rem;
-    line-height: 1.7;
+    color: var(--color-primary-text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* ==================== PROJECTS & SUB-NAV ==================== */
+.exp-sub-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 25px;
+    scrollbar-width: none; /* Firefox */
+}
+
+.exp-sub-nav::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.exp-sub-tab {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--color-secondary-text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.exp-sub-tab.active {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+}
+
+.exp-sub-panel { display: none; }
+.exp-sub-panel.active { display: block; }
+
+/* ==================== SKILLS & LISTS ==================== */
+.exp-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.exp-skill-badge {
+    font-size: 0.7rem;
+    background: rgba(212, 165, 116, 0.1);
+    border: 1px solid rgba(212, 165, 116, 0.3);
+    color: var(--color-accent-soft);
+    padding: 4px 12px;
+    border-radius: 4px;
 }
 
 .exp-achievements {
     list-style: none;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
 }
 
 .exp-achievements li {
-    padding-left: 20px;
     position: relative;
-    color: var(--color-primary-text, #e8e9ed);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-primary-text);
 }
 
 .exp-achievements li::before {
-    content: '\25B8';
+    content: "▹";
     position: absolute;
     left: 0;
-    color: var(--color-accent, #d4a574);
+    color: var(--color-accent);
 }
 
-.exp-achievements strong {
-    color: var(--color-accent, #d4a574);
-}
-
-/* Sub-role headings within a panel (for combined roles at same company) */
-.exp-panel h4 {
-    border-bottom: 1px solid var(--color-border, #363940);
-    padding-bottom: 6px;
-}
-
-/* Second achievement list spacing (after sub-heading) */
-.exp-panel h4 + .exp-achievements {
-    margin-bottom: 0;
-}
-
-
-/* ==================== SUB-NAVIGATION (project tabs within a panel) ==================== */
-
-.exp-sub-nav {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 4px;
-    border-bottom: 1px solid var(--color-border, #363940);
-    margin-bottom: 20px;
-    scrollbar-width: none;
-}
-
-.exp-sub-nav::-webkit-scrollbar {
-    display: none;
-}
-
-.exp-sub-tab {
-    flex-shrink: 0;
-    padding: 6px 14px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    border: none;
-    background: transparent;
-    color: var(--color-secondary-text, #a8adb8);
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.exp-sub-tab:hover {
-    color: var(--color-accent-soft, #e8d4bc);
-    border-bottom-color: var(--color-accent-soft, #e8d4bc);
-}
-
-.exp-sub-tab.active {
-    color: var(--color-accent, #d4a574);
-    border-bottom-color: var(--color-accent, #d4a574);
-}
-
-.exp-sub-panel {
-    display: none;
-}
-
-.exp-sub-panel.active {
-    display: block;
-}
-
-.exp-sub-overview {
-    font-size: 0.875rem;
-    color: var(--color-secondary-text, #a8adb8);
-    margin-bottom: 14px;
-    line-height: 1.6;
-}
-
-.exp-sub-panel h5 {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-accent, #d4a574);
-    margin: 12px 0 6px;
-}
-
-/* ==================== SKILL BADGES ==================== */
-
-.exp-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
-}
-
-.exp-skill-badge {
-    font-size: 0.7rem;
-    font-weight: 500;
-    font-family: 'Poppins', sans-serif;
-    color: var(--color-accent-soft, #e8d4bc);
-    background: rgba(212, 165, 116, 0.08);
-    border: 1px solid rgba(212, 165, 116, 0.2);
-    border-radius: 9999px;
-    padding: 2px 10px;
-    white-space: nowrap;
-    transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.exp-skill-badge:hover {
-    background: rgba(212, 165, 116, 0.15);
-    border-color: rgba(212, 165, 116, 0.4);
-}
-
-
-/* ==================== RESPONSIVE: Mobile stacks horizontally ==================== */
-
-@media (max-width: 640px) {
+/* ==================== RESPONSIVE DESIGN (MOBILE) ==================== */
+@media (max-width: 768px) {
     .exp-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr; /* Stack sidebar on top of content */
     }
 
     .exp-tabs {
-        flex-direction: row;
+        flex-direction: row; /* Horizontal tabs */
         border-right: none;
-        border-bottom: 2px solid var(--color-border, #363940);
+        border-bottom: 2px solid var(--color-border);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        margin-bottom: 20px;
     }
 
     .exp-tab {
+        min-width: 160px; /* Prevents tabs from squishing and overlapping */
+        padding: 15px;
+        text-align: center;
+        align-items: center;
         border-right: none;
         border-bottom: 2px solid transparent;
         margin-right: 0;
         margin-bottom: -2px;
-        min-width: 140px;
-        white-space: nowrap;
-    }
-
-    .exp-tab:hover {
-        border-right-color: transparent;
-        border-bottom-color: var(--color-accent-soft, #e8d4bc);
     }
 
     .exp-tab.active {
-        border-right-color: transparent;
-        border-bottom-color: var(--color-accent, #d4a574);
+        border-bottom-color: var(--color-accent);
     }
 
     .exp-panel {
-        padding: 24px 0 0 0;
+        padding: 0 10px; /* Reduce padding so content doesn't feel cramped */
+    }
+
+    .exp-title {
+        font-size: 1.25rem;
     }
 }
