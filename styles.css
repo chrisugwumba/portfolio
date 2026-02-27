@@ -521,3 +521,82 @@ html {
         transform: rotate(600deg) translateX(250px) rotate(-600deg);
     }
 }
+
+/* ==========================================
+   MOBILE RESPONSIVE FIX
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    /* Section Titles */
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+    }
+
+    /* Orbit Rings Resize */
+    .orbit-inner-ring {
+        width: 260px;
+        height: 260px;
+    }
+
+    .orbit-outer-ring {
+        width: 320px;
+        height: 320px;
+    }
+
+    /* Orbit Icons Smaller */
+    .orbiting-icon {
+        width: 36px;
+        height: 36px;
+        margin: -18px;
+    }
+
+    .orbiting-icon img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Adjust Inner Orbit Radius */
+    @keyframes orbitInner1 {
+        from { transform: rotate(0deg) translateX(130px) rotate(0deg); }
+        to   { transform: rotate(360deg) translateX(130px) rotate(-360deg); }
+    }
+
+    @keyframes orbitInner2 {
+        from { transform: rotate(120deg) translateX(130px) rotate(-120deg); }
+        to   { transform: rotate(480deg) translateX(130px) rotate(-480deg); }
+    }
+
+    @keyframes orbitInner3 {
+        from { transform: rotate(240deg) translateX(130px) rotate(-240deg); }
+        to   { transform: rotate(600deg) translateX(130px) rotate(-600deg); }
+    }
+
+    /* Adjust Outer Orbit Radius */
+    @keyframes orbitOuter1 {
+        from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
+        to   { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
+    }
+
+    @keyframes orbitOuter2 {
+        from { transform: rotate(120deg) translateX(160px) rotate(-120deg); }
+        to   { transform: rotate(480deg) translateX(160px) rotate(-480deg); }
+    }
+
+    @keyframes orbitOuter3 {
+        from { transform: rotate(240deg) translateX(160px) rotate(-240deg); }
+        to   { transform: rotate(600deg) translateX(160px) rotate(-600deg); }
+    }
+
+    /* Reduce Floating Background Noise */
+    .floating-shape,
+    .floating-dot,
+    .floating-medium {
+        display: none;
+    }
+}
